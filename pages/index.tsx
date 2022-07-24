@@ -3,6 +3,7 @@ import React from 'react';
 import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
+import Product from '../components/Product';
 
 
 
@@ -18,10 +19,12 @@ const Home = ({ products , bannerData } : {
     </div>
 
     <div className="products-container">
-      Products
+      {products.map((product :any) => (
+        <Product key={product._id} product={product} />
+      ))}
     </div>
 
-    <FooterBanner />
+    <FooterBanner footerBanner={bannerData.length && bannerData[0]}  />
   </div>
 );
 
