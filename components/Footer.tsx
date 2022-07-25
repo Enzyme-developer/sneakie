@@ -2,7 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>Footer</div>
+    <div className='footer'>
+      <h4>Sneakie : choose your choice &copy; 2022</h4>
+    </div>
   )
 }
 

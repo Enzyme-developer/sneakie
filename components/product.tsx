@@ -1,11 +1,16 @@
-import React from 'react';
 import Link from 'next/link';
-
+//for fetching images
 import { urlFor } from '../LIB/client';
 
-const Product = ({ product: { image, name, slug, price } } :any) => {
+//type for product
+type Product = {
+  product : any
+}
+
+const Product = ({ product: { image, name, slug, price } } : Product) => {
   return (
     <div>
+      {/* go to clicked product by using slug.current */}
       <Link href={`/product/${slug.current}`}>
         <div className="product-card">
           <img 
@@ -22,4 +27,4 @@ const Product = ({ product: { image, name, slug, price } } :any) => {
   )
 }
 
-export default Product
+export default Product;
