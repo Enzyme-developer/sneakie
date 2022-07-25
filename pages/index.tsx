@@ -2,7 +2,7 @@ import React from 'react';
 import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
-import Product from '../components/Product';
+import IndividualProduct from '../components/IndividualProduct';
 
 
 const Home = ({ products , bannerData } : {
@@ -18,7 +18,7 @@ const Home = ({ products , bannerData } : {
 
     <div className="products-container">
       {products.map((product :any) => (
-        <Product key={product._id} product={product} />
+        <IndividualProduct key={product._id} product={product} />
       ))}
     </div>
 

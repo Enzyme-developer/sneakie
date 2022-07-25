@@ -2,7 +2,7 @@ import Link from 'next/link';
 //for fetching images
 import { urlFor } from '../LIB/client';
 
-const Product = ({ product: { image, name, slug, price } } :any) => {
+const IndividualProduct = ({ product: { image, name, slug, price } } :any) => {
   return (
     <div>
       {/* go to clicked product by using slug.current */}
@@ -22,4 +22,4 @@ const Product = ({ product: { image, name, slug, price } } :any) => {
   )
 }
 
-export default Product
+export default IndividualProduct
