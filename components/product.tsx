@@ -2,12 +2,7 @@ import Link from 'next/link';
 //for fetching images
 import { urlFor } from '../LIB/client';
 
-//type for product
-type Product = {
-  product : any
-}
-
-const Product = ({ product: { image, name, slug, price } } : Product) => {
+const Product = ({ product: { image, name, slug, price } } :any) => {
   return (
     <div>
       {/* go to clicked product by using slug.current */}
