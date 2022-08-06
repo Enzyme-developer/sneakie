@@ -3,6 +3,7 @@ import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
+import Signup from '../components/Signup';
 
 
 const Home = ({ products , bannerData } : {
@@ -22,7 +23,8 @@ const Home = ({ products , bannerData } : {
       ))}
     </div>
 
-    <FooterBanner footerBanner={bannerData.length && bannerData[0]}  />
+    <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
+    <Signup />
   </div>
 );
 

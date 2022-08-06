@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { client, urlFor } from '../../LIB/client';
 import Product from '../../components/IndividualProduct';
@@ -7,8 +7,23 @@ import { useStateContext } from '../../context/StateContext';
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
-  const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const { decQty, incQty, qty, onAdd, setShowCart, cartItems } = useStateContext();
 
+  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false);  
+    
+  useEffect(()=>{
+    let prev_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    onAdd(prev_items)
+    setIsInitiallyFetched(true)
+  },[])
+  
+  useEffect(() => {
+    if(isInitiallyFetched){
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
+  //handle buy function
   const handleBuy = () => {
     onAdd(product, qty);
     setShowCart(true);

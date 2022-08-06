@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai'
 
@@ -7,9 +7,20 @@ import { useStateContext } from '../context/StateContext';
 
 const Navbar = () => {
   //get functions from the context
-  const { showCart, setShowCart, totalQuantities } = useStateContext();
+  const { showCart, setShowCart, totalQuantities, cartItems } = useStateContext();
   //state for responsive navbar
   const [nav , handleNav ] = useState(false)
+  const [quantity , setQuantity ] = useState(0)
+
+  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false);  
+    
+
+  useEffect(()=>{
+    let prev_items = JSON.parse(localStorage.getItem('cartItems')!);
+    // setIsInitiallyFetched(true)
+    setQuantity(prev_items?.length)
+  }, [cartItems])
+  
 
   return (
     <div className="navbar-container">
@@ -27,7 +38,7 @@ const Navbar = () => {
 
       <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
         <AiOutlineShopping />
-        <span className="cart-item-qty">{totalQuantities}</span>
+        <span className="cart-item-qty">{quantity}</span>
       </button>
 
       {showCart && <Cart />}
