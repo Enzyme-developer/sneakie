@@ -5,21 +5,21 @@ import { useRouter } from 'next/router';
 import Link from 'next/link'
 
 
-const Signup = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
-  const { signUp } = useContext(userContext)
+  const { signIn } = useContext(userContext)
 
 
-  const signNewUser = async (e : any) => {
-    e.preventDefault();
-    setError('');
+    const signInNewUser = async (e: any) => {
+        e.preventDefault()
+        setError('')
     try {
-      await signUp(email, password)
-      // router.push('/cart')
-      alert('bjhbcjhnd')
+        await signIn(email, password)
+        alert('ntoiin')
+    //   router.push('/')
     }
     catch (e: any){
       console.log(e)
@@ -32,13 +32,13 @@ const Signup = () => {
     <div>
       <input onChange={(e) => setEmail(e.target.value)} />
       <input onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={ signNewUser }>signup</button>
+      <button onClick={signInNewUser}>signIn</button>
       <p>{error}</p>
       <p>Already Registered? 
-        <Link href='/sign_in'>Sign In</Link>
+        <Link href='/sign_up'>Sign In</Link>
       </p>
     </div>
   )
 }
 
-export default Signup
+export default SignIn

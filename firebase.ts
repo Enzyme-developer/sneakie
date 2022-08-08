@@ -6,13 +6,13 @@ import { getFirestore } from  'firebase/firestore'
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyB9gUzHUwap8co60eOqoyiGNtmiYzIA7GU",
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
   authDomain: "sneakie-mart.firebaseapp.com",
   projectId: "sneakie-mart",
   storageBucket: "sneakie-mart.appspot.com",
-  messagingSenderId: "611246447995",
-  appId: "1:611246447995:web:5bded07c1e0e5b280331de",
-  measurementId: "G-XTQ4SLM1FL"
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_MEASUREMENT_ID
 };
 
 
