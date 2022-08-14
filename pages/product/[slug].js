@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { client, urlFor } from '../../LIB/client';
 import Product from '../../components/IndividualProduct';
@@ -9,19 +9,26 @@ const ProductDetails = ({ product, products }) => {
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart, cartItems } = useStateContext();
 
-  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false);  
     
-  useEffect(()=>{
-    let prev_items = JSON.parse(localStorage.getItem('cartItems')) || [];
-    onAdd(prev_items)
-    setIsInitiallyFetched(true)
-  },[])
+  // useEffect(()=>{
+  //   let prev_items = JSON.parse(localStorage.getItem('cartItems')) || [];
+  //   // onAdd(prev_items)
+  //   setIsInitiallyFetched(true)
+  // },[])
   
-  useEffect(() => {
-    if(isInitiallyFetched){
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    }
-  }, [cartItems]);
+  // useEffect(() => {
+  //   localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  //   console.log(cartItems)
+  //   setIsInitiallyFetched(true)
+  // }, [cartItems]);
+
+  // useEffect(() => {
+  //   if(isInitiallyFetched){
+  //     localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  //     // total();
+  //   }
+  // }, [cartItems]);
+  
 
   //handle buy function
   const handleBuy = () => {
@@ -79,7 +86,7 @@ const ProductDetails = ({ product, products }) => {
 
           <div className="buttons">
             <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
-            <button type="button" className="buy-now" onClick={handleBuy}>Buy Now</button>
+            <button type="button" className="buy-now" onClick={handleBuy} >Buy Now</button>
           </div>
 
         </div>

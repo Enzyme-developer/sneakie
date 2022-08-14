@@ -10,7 +10,7 @@ const Navbar = () => {
   const router = useRouter()
 
   //get functions from the context
-  const { showCart, setShowCart, totalQuantities, cartItems } = useStateContext();
+  const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
   //state for responsive navbar
   const [nav , handleNav ] = useState(false)
   const [quantity , setQuantity ] = useState(0)
@@ -26,11 +26,15 @@ const Navbar = () => {
     router.push('/sign_up')
   }
 
-  useEffect(()=>{
-    let prev_items = JSON.parse(localStorage.getItem('cartItems')!);
-    // setIsInitiallyFetched(true)
-    setQuantity(prev_items?.length)
-  }, [cartItems])
+  console.log(storage)
+  
+  // useEffect(() => {
+  //   if(isInitiallyFetched){
+  //     localStorage.setItem("cart", JSON.stringify(cartItems));
+  //     // total();
+  //   }
+  // }, [cartItems]);
+
   
 
   return (
@@ -49,7 +53,7 @@ const Navbar = () => {
 
       <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
         <AiOutlineShopping />
-        <span className="cart-item-qty">{quantity}</span>
+        <span className="cart-item-qty">{storage.length}</span>
       </button>
 
       {showCart && <Cart />}

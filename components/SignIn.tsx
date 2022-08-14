@@ -14,17 +14,19 @@ const SignIn = () => {
 
 
     const signInNewUser = async (e: any) => {
-        e.preventDefault()
-        setError('')
+      e.preventDefault()
+      setError('')
     try {
         await signIn(email, password)
-        alert('ntoiin')
-    //   router.push('/')
     }
     catch (e: any){
       console.log(e)
       setError(e.message)
     }
+
+      if (!e) {
+        router.push('/')
+      }
   }
   
 

@@ -1,44 +1,74 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
-type stateContextType  = {
-  setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
-  setCartItems: React.Dispatch<any>;
-  setTotalQuantities: React.Dispatch<React.SetStateAction<number>>;
-  setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
-  qty: number;
-  showCart: boolean;
-  cartItems: any;
-  totalPrice: number;
-  totalQuantities: number;
-  incQty: () => void;
-  decQty: () => void;
-  onAdd: (product: any, quantity: number) => void;
-  toggleCartItemQuanitity: (id: number, value: string) => void;
-  onRemove: (product: any) => void;
-}
+// type stateContextType  = {
+//   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
+//   setCartItems: React.Dispatc>;
+//   setTotalQuantities: React.Dispatch<React.SetStateAction<number>>;
+//   setTotalPrice: React.Dispatch<React.SetStateAction<number>>;
+//   qty: number;
+//   showCart: boolean;
+//   cartItems;
+//   totalPrice: number;
+//   totalQuantities: number;
+//   incQty: () => void;
+//   decQty: () => void;
+//   onAdd: (product, quantity: number) => void;
+//   toggleCartItemQuanitity: (id: number, value: string) => void;
+//   onRemove: (product) => void;
+//   storage[];
+// }
 
 
-const StateContext = createContext<stateContextType>({} as stateContextType);
+const StateContext = createContext();
 
+// if (window !== undefined) {
+//   var updatedFromLocalstorage = JSON.parse(localStorage.getItem('cartItems')!);
+// }
 
-export const StateContextProvider = ({ children }: any) => {
+export const StateContextProvider = ({ children }) => {
+
   //states
   const [showCart, setShowCart] = useState(false);
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const initialState = [];
+  const [cartItems, setCartItems] = useState(initialState);
+  const [storage, setStorage] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
 
-  let foundProduct : any;
+  let foundProduct ;
   let index;
 
 
 
+  useEffect(() => {
+    const cartData = JSON.parse(localStorage.getItem("cart"));
+    if (cartData) {
+      setCartItems(cartData);
+    }
+  }, []);
+
+
+  
+  useEffect(() => {
+    if (cartItems !== initialState) {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    }
+  }, [cartItems]);
+
+
+  // useEffect(()=>{
+  //   let prev_items = JSON.parse(localStorage.getItem('cartItems')!);
+  //   console.log(prev_items)
+  //   setCartItems(prev_items)
+  // }, [])
+  
+
   //adding product
-  const onAdd = (product: any, quantity: number) => {
+  const onAdd = (product, quantity) => {
     //check if product is present before adding by comparing ID
-    const productInCart = cartItems.find((item: any) => item?._id === product._id);
+    const productInCart = cartItems.find((item) => item?._id === product._id);
     
     //update price and quantity regardless of if product is in the cart
     setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
@@ -47,7 +77,7 @@ export const StateContextProvider = ({ children }: any) => {
     //if product was present in the cartItems, increase the quantity of that particular product
     if (productInCart) {
       //map through every product so as to compare the newly added product then update the cart
-      const updatedCartItems = cartItems.map((cartProduct: any) => {
+      const updatedCartItems = cartItems.map((cartProduct) => {
         if(cartProduct?._id === product._id) return {
           ...cartProduct,
           //if product is present ,overwrite only the quantity
@@ -71,33 +101,35 @@ export const StateContextProvider = ({ children }: any) => {
 
 
   //Deleting products
-  const onRemove = (product: any) => {
+  const onRemove = (product) => {
     //find the product
-    foundProduct = cartItems.find((item: any )=> item._id === product._id);
+    foundProduct = cartItems.find((item )=> item._id === product._id);
     //filter the product from the cart
-    const newCartItems = cartItems.filter((item: any) => item._id !== product._id);
+    const newCartItems = cartItems.filter((item) => item._id !== product._id);
 
     //update the states
-    setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.price * foundProduct.quantity);
+    setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
     setCartItems(newCartItems);
   }
 
 
 
-  const toggleCartItemQuanitity = (id: number, value: string) => {
+  const toggleCartItemQuanitity = (id, value) => {
     //find the product
-    foundProduct = cartItems.find((item: any) => item._id === id)
+    foundProduct = cartItems.find((item) => item._id === id)
     //find index of the product
-    index = cartItems.findIndex((product: any) => product._id === id);
+    index = cartItems.findIndex((product) => product._id === id);
     //Remove the found product and make cart clean
-    const newCartItems : any = cartItems.filter((item: any) => item._id !== id)
+    const newCartItems  = cartItems.filter((item) => item._id !== id)
 
     if (value === 'inc') {
       //if value is increase, update state
 
       //update the quantity of the found product and add it to the clean cart
       setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
+
+      //update state
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
     }
@@ -149,7 +181,8 @@ export const StateContextProvider = ({ children }: any) => {
         onRemove,
         setCartItems,
         setTotalPrice,
-        setTotalQuantities 
+        setTotalQuantities,
+        storage
       }}
     >
       {children}
