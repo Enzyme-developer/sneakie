@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai'
 
 import Cart from './Cart';
 import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
+import { userContext } from '../context/AuthContext';
 
 const Navbar = () => {
   const router = useRouter()
 
   //get functions from the context
   const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
+  const { logOut } = useContext(userContext)
   //state for responsive navbar
   const [nav , handleNav ] = useState(false)
   const [quantity , setQuantity ] = useState(0)
@@ -44,6 +46,8 @@ const Navbar = () => {
           <Link href="/">Sneakie</Link>
         </p>
       </div>
+
+      <button onClick={logOut}>logout</button>
 
       <div className='buttons'>
         <button type='button' onClick={signup} className='sign-up'>Sign Up</button>

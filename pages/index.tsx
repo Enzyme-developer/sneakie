@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
@@ -11,13 +11,30 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
   const [text, setText] = useState('')
   const [option, setOption] = useState('')
-  const [productItems, setProductItems] = useState(products)
-  console.log(products)
+  const [productItems, setProductItems] = useState<any>(products)
+  const [categoryType, setCategortType] = useState('all')
+  const categories: any = [ "all" , "footwear" ]
+  console.log(productItems)
+  console.log(categories)
 
-  const handleChange = (e: any) => {
-    console.log(e.target.value);
-    setOption(e.target.value);
-  };
+  useEffect(() => {
+    if (categoryType !== 'all') {
+      // console.log('gdhd')
+      const filtered = productItems.filter((item: any) => (
+        item.details.toLowerCase().includes(categoryType.toLowerCase())
+      ))
+
+      console.log(filtered)
+      setProductItems(filtered)
+    }
+  }, [categoryType])
+  
+  
+    
+  
+
+
+
 
     return (
       <div>
@@ -29,10 +46,18 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
           <p>Be the envy of your friends</p>
         </div>
 
-        <select value={''} onChange={handleChange}>
+        <select value='' onChange={(e) => setOption(e.target.value)}>
           <option value="lowest">Lowest Price</option>
           <option value="highest">Highest Price</option>
         </select>
+
+        <div>
+          {categories.map((category: any) => (
+            <h1 onClick={ () =>setCategortType(category)}>{category}</h1>
+          ))}
+        </div>
+
+        
 
         <div>
           <input type="text" onChange={(e) => setText(e.target.value)}/>
@@ -40,7 +65,8 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
     
         <div className="products-container">
-          {productItems.filter((product: any) => {
+          {productItems
+          .filter((product: any) => {
             if (text === '') {
               return product
             } else if (
