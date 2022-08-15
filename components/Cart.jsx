@@ -19,6 +19,7 @@ const Cart = () => {
 
 
   console.log(cartItems)
+  console.log(cartItems)
 
 
   // useEffect(() => {
@@ -117,8 +118,9 @@ const Cart = () => {
 
       <div>
         {cartItems.map((cartItem) => (
-          <h1>{cartItem.name}</h1>
+          <h1>{cartItem?.name}</h1>
         ))}
+        <h1>{totalPrice}</h1>
       </div>
       
     </div>

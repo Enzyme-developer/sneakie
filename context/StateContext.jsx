@@ -31,6 +31,7 @@ export const StateContextProvider = ({ children }) => {
   //states
   const [showCart, setShowCart] = useState(false);
   const initialState = [];
+  let def = 0
   const [cartItems, setCartItems] = useState(initialState);
   const [storage, setStorage] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -47,6 +48,10 @@ export const StateContextProvider = ({ children }) => {
     if (cartData) {
       setCartItems(cartData);
     }
+    const cartPrice = JSON.parse(localStorage.getItem("price"));
+    if (cartPrice) {
+      setTotalPrice(cartPrice);
+    }
   }, []);
 
 
@@ -55,14 +60,11 @@ export const StateContextProvider = ({ children }) => {
     if (cartItems !== initialState) {
       localStorage.setItem("cart", JSON.stringify(cartItems));
     }
-  }, [cartItems]);
+    if (totalPrice !== def) {
+      localStorage.setItem("price", JSON.stringify(totalPrice));
+    }
+  }, [cartItems, totalPrice]);
 
-
-  // useEffect(()=>{
-  //   let prev_items = JSON.parse(localStorage.getItem('cartItems')!);
-  //   console.log(prev_items)
-  //   setCartItems(prev_items)
-  // }, [])
   
 
   //adding product

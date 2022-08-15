@@ -21,6 +21,7 @@ export const userContext = createContext<AuthContextType>({} as AuthContextType)
 export const AuthContextProvider = ({ children }: any) => {
     
     const [user, setUser] = useState({})
+    console.log(user)
     
     const signUp = (email: any, password: any) => {
         createUserWithEmailAndPassword(auth, email, password)

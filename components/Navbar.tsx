@@ -12,7 +12,7 @@ const Navbar = () => {
 
   //get functions from the context
   const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
-  const { logOut } = useContext(userContext)
+  const { logOut, user } = useContext(userContext)
   //state for responsive navbar
   const [nav , handleNav ] = useState(false)
   const [quantity , setQuantity ] = useState(0)
@@ -37,7 +37,10 @@ const Navbar = () => {
   //   }
   // }, [cartItems]);
 
-  
+  let nameMatch = user?.email?.match(/^([^@]*)@/);
+  const name = nameMatch ? nameMatch[1] : null;
+  // console.log(nameMatch)
+  // console.log(user)
 
   return (
     <div className="navbar-container">
@@ -45,6 +48,10 @@ const Navbar = () => {
         <p className="logo">
           <Link href="/">Sneakie</Link>
         </p>
+      </div>
+
+      <div>
+        Hi, {name}
       </div>
 
       <button onClick={logOut}>logout</button>
