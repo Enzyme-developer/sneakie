@@ -16,7 +16,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   const [range, setRange] = useState(0)
   const categories: any = ["all", "footwear", "clothing", "Jewelry", "Lighting", "Electronics", "Courses"]
   
-  console.log(option)
+  console.log(productItems)
 
 
   productItems.filter((product: any) => {
@@ -46,7 +46,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   useEffect(() => {
     if (categoryType !== 'all') {
       const filtered = productItems.filter((item: any) => (
-        item.category?.toLowerCase().matches(categoryType.toLowerCase())
+        item.category?.toLowerCase().includes(categoryType.toLowerCase())
       ))
       // console.log(filtered)
       setProductItems(filtered)

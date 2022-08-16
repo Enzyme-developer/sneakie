@@ -1,7 +1,9 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import emailjs from 'emailjs-com'
+import { userContext } from '../context/AuthContext';
+import { useStateContext } from '../context/StateContext';
 
 const Checkout = () => {
 
@@ -10,14 +12,17 @@ const [address, setAddress] = useState('')
 const [telephone, setTelephone] = useState('')
 const [payment, setPayment] = useState('')
 const [loading, setLoading] = useState(false)
+const { user } = useContext(userContext)
+const { setCartItems } = useStateContext()
     
     
 const confirm = () => {
-    if (payment && address && telephone) {
+    if (address && telephone) {
         setLoading(true)
         toast.success('Order placed successfully, We would be in touch.')
         router.push('/')
         setLoading(false)
+        setCartItems([])
     } else {
         alert('fill all fields to validate checkout')
     }
@@ -28,6 +33,10 @@ const someDate = new Date();
 let numberOfDaysToAdd = 2;
 let result = new Date(someDate.setDate(someDate.getDate() + numberOfDaysToAdd)).toString().substring(0, 15);
 
+
+    if (!user) {
+        router.push('/')
+    }
 
     return (
        

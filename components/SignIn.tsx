@@ -37,8 +37,8 @@ const SignIn = () => {
       <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='12regdj'/>
       <button onClick={signInNewUser}>signIn</button>
       <p>{error}</p>
-      <p>Already Registered? 
-        <Link href='/sign_up'>Sign In</Link>
+      <p>Not Registered? 
+        <Link href='/sign_up'>Sign up</Link>
       </p>
     </div>
   )

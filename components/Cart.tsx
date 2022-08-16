@@ -2,15 +2,14 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineLeft, AiOutlineShopping } from 'react-icons/ai';
 import { TiDeleteOutline } from 'react-icons/ti';
-import toast, { Toaster } from 'react-hot-toast';
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { Toaster } from 'react-hot-toast';
+
 
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../LIB/client';
 import { userContext } from '../context/AuthContext';
 import { useRouter } from 'next/router';
-// import getStripe from '../lib/getStripe';
+
 
 const Cart = () => {
   const router = useRouter()

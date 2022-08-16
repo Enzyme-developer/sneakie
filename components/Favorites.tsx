@@ -42,9 +42,10 @@ const Favorites = () => {
     <div>
       <Toaster />
       {favorites?.map((item: any) => (
-        <Link  href={``}>
+        <Link  href={`/`}>
           <div>
             <h1>{item.name}</h1>
+            <h3>${item.price}</h3>
             <button onClick={() => handleDelete(item.id)}>delete</button>
           </div>
         </Link>
@@ -52,5 +53,7 @@ const Favorites = () => {
     </div>
   )
 }
+
+
 
 export default Favorites
