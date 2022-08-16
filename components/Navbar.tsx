@@ -6,6 +6,7 @@ import Cart from './Cart';
 import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 import { userContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Navbar = () => {
   const router = useRouter()
@@ -16,9 +17,17 @@ const Navbar = () => {
   //state for responsive navbar
   const [nav , handleNav ] = useState(false)
   const [quantity , setQuantity ] = useState(0)
-
-  const [isInitiallyFetched, setIsInitiallyFetched] = useState(false);  
     
+  const handlelogOut = async (e : any) => {
+    try {
+      await logOut()
+      router.push('/')
+      toast.error('logout successful')
+    }
+    catch (e: any){
+      console.log(e)
+    }
+  }
 
   const signin = () => {
     router.push('/sign_in')
@@ -28,19 +37,15 @@ const Navbar = () => {
     router.push('/sign_up')
   }
 
-  console.log(storage)
-  
-  // useEffect(() => {
-  //   if(isInitiallyFetched){
-  //     localStorage.setItem("cart", JSON.stringify(cartItems));
-  //     // total();
-  //   }
-  // }, [cartItems]);
-
   let nameMatch = user?.email?.match(/^([^@]*)@/);
   const name = nameMatch ? nameMatch[1] : null;
   // console.log(nameMatch)
   // console.log(user)
+
+  const goToCart = () => {
+    router.push ('/cart')
+  }
+
 
   return (
     <div className="navbar-container">
@@ -51,10 +56,12 @@ const Navbar = () => {
       </div>
 
       <div>
-        Hi, {name}
+        {!user ? ('') :
+          (<p>Hi, {name}</p>)
+        }
       </div>
 
-      <button onClick={logOut}>logout</button>
+      <button onClick={handlelogOut}>logout</button>
 
       <div className='buttons'>
         <button type='button' onClick={signup} className='sign-up'>Sign Up</button>
@@ -62,12 +69,12 @@ const Navbar = () => {
         <button type='button' className='sign-out'>Logout</button>
       </div>
 
-      <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
+      <button type="button" className="cart-icon" onClick={goToCart}>
         <AiOutlineShopping />
-        <span className="cart-item-qty">{storage.length}</span>
+        <span className="cart-item-qty">{cartItems.length}</span>
       </button>
 
-      {showCart && <Cart />}
+      {/* {showCart && <Cart />} */}
     </div>
   )
 }

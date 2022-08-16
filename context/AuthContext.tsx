@@ -3,6 +3,7 @@ import { auth , db } from '../firebase';
 import { createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut , onAuthStateChanged, UserCredential } from 'firebase/auth';
 
 import { doc, setDoc } from 'firebase/firestore'
+import toast from 'react-hot-toast';
 
 
 type AuthContextType = {
@@ -37,6 +38,7 @@ export const AuthContextProvider = ({ children }: any) => {
 
     const logOut = () => {
         return signOut(auth)
+        toast.error('logout successful')
     }
  
 

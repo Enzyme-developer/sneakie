@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { userContext } from '../context/AuthContext'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const SignIn = () => {
@@ -13,27 +14,27 @@ const SignIn = () => {
   const { signIn } = useContext(userContext)
 
 
-    const signInNewUser = async (e: any) => {
-      e.preventDefault()
-      setError('')
+  const signInNewUser = async (e: any) => {
+    setError('')
     try {
         await signIn(email, password)
+      router.push('/')
+      toast.success('sign in successful')
     }
     catch (e: any){
       console.log(e)
       setError(e.message)
     }
-
-      if (!e) {
-        router.push('/')
-      }
   }
   
 
   return (
     <div>
-      <input onChange={(e) => setEmail(e.target.value)} />
-      <input onChange={(e) => setPassword(e.target.value)} />
+      <Toaster />
+      <label>Email address</label>
+      <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' />
+      <label>Password</label>
+      <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='12regdj'/>
       <button onClick={signInNewUser}>signIn</button>
       <p>{error}</p>
       <p>Already Registered? 

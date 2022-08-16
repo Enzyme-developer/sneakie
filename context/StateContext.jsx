@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { toast } from 'react-hot-toast';
+import { toast, Toaster } from 'react-hot-toast';
 
 // type stateContextType  = {
 //   setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
@@ -98,6 +98,7 @@ export const StateContextProvider = ({ children }) => {
     }
 
     toast.success(`${qty} ${product.name} added to the cart.`);
+    return <Toaster />
   } 
 
 
@@ -113,6 +114,8 @@ export const StateContextProvider = ({ children }) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price * foundProduct.quantity);
     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
     setCartItems(newCartItems);
+    toast.error(`${product.name} deleted from the cart.`);
+    return <Toaster />
   }
 
 
@@ -123,28 +126,32 @@ export const StateContextProvider = ({ children }) => {
     //find index of the product
     index = cartItems.findIndex((product) => product._id === id);
     //Remove the found product and make cart clean
+    //clean cart
     const newCartItems  = cartItems.filter((item) => item._id !== id)
 
     if (value === 'inc') {
       //if value is increase, update state
 
-      //update the quantity of the found product and add it to the clean cart
+      //update the quantity of the found product and add it to the clean cart changing only the quantity
       setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
 
       //update state
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
+      toast.success(`one Item added to the cart.`);
     }
     
     
     else if (value === 'dec') {
       if (foundProduct.quantity > 1) {
-        //update the quantity of the found product and add it to the clean cart
+        //update the quantity of the found product and add it to the clean cart decreasing only the quantity
         setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
 
         //update state
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
+        toast.error(`one Item removed from the cart.`);
+        return <Toaster />
       }
     }
   }

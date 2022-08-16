@@ -46,7 +46,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   useEffect(() => {
     if (categoryType !== 'all') {
       const filtered = productItems.filter((item: any) => (
-        item.details.toLowerCase().includes(categoryType.toLowerCase())
+        item.category?.toLowerCase().matches(categoryType.toLowerCase())
       ))
       // console.log(filtered)
       setProductItems(filtered)
@@ -82,14 +82,12 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
       )
       setProductItems(filteredOption)
 
-    } else if (option == 'normal') {
+    } else {
       const filteredOption = productItems.sort((a: any, b: any) =>
       a.name - b.name
     )
     setProductItems(filteredOption)
-    } else {
-      setProductItems(products)
-    }
+    } 
     }, [option])
   
   
@@ -148,13 +146,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
           } 
         </div>
 
-    
-          {/* {productItems.length ==0 && (
-            <h1>Not found</h1>
-          ) } */}
-      
-
-            <Favorites />
+        <Favorites />
         <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
       </div>
     );

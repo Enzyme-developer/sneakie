@@ -3,6 +3,7 @@ import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-
 import { client, urlFor } from '../../LIB/client';
 import Product from '../../components/IndividualProduct';
 import { useStateContext } from '../../context/StateContext';
+import { Toaster } from 'react-hot-toast';
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
@@ -39,6 +40,7 @@ const ProductDetails = ({ product, products }) => {
 
   return (
     <div>
+      <Toaster />
       <div className="product-detail-container">
         <div>
 
