@@ -87,6 +87,8 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
       a.name - b.name
     )
     setProductItems(filteredOption)
+    } else {
+      setProductItems(products)
     }
     }, [option])
   
@@ -95,6 +97,9 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
   const clearFilter = () => {
     setRange(0)
+    setCategortType('all')
+    setText('')
+    setOption('')
     setProductItems(products)
  }
 
