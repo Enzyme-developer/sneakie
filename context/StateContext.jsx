@@ -33,6 +33,7 @@ export const StateContextProvider = ({ children }) => {
   const initialState = [];
   let def = 0
   const [cartItems, setCartItems] = useState(initialState);
+  const [storage, setStorage] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalQuantities, setTotalQuantities] = useState(0);
   const [qty, setQty] = useState(1);
