@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import emailjs from 'emailjs-com'
 import { userContext } from '../context/AuthContext';
@@ -10,6 +10,7 @@ const Checkout = () => {
 const router = useRouter();
 const [address, setAddress] = useState('')
 const [telephone, setTelephone] = useState('')
+const [edd, setEdd] = useState('')
 const [payment, setPayment] = useState('')
 const [loading, setLoading] = useState(false)
 const { user } = useContext(userContext)
@@ -29,9 +30,13 @@ const confirm = () => {
 } 
     
     
-const someDate = new Date();
-let numberOfDaysToAdd = 2;
-let result = new Date(someDate.setDate(someDate.getDate() + numberOfDaysToAdd)).toString().substring(0, 15);
+    useEffect(() => {
+        const someDate = new Date();
+        let result = new Date(someDate.setDate(someDate.getDate() + Math.floor(Math.random() * 5))).toString().substring(0, 15);
+        setEdd(result)
+    }, [])
+    
+
 
 
     if (!user) {
@@ -64,7 +69,7 @@ let result = new Date(someDate.setDate(someDate.getDate() + numberOfDaysToAdd)).
         </div>}
         
           
-        <p>Expexcted delivery date : {result}</p>
+        <p>Expexcted delivery date : {edd}</p>
 
           <button onClick={confirm}>Confirm Checkout</button>
 
