@@ -131,7 +131,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
         <div>
           <label htmlFor="priceRange">Price Filter</label>
-          <input onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="40" defaultValue={0} max="100" step="10" />
+          <input onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
           <button onClick={clearFilter}>Clear Filter</button>
         </div>

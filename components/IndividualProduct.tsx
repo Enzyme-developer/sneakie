@@ -52,7 +52,7 @@ const IndividualProduct = ({ product }: any) => {
 
         </div>
       </Link>
-                <button onClick={() => saveItem()}>favorite</button>
+      <button onClick={() => saveItem()}>favorite</button>
     </div>
   )
 }
