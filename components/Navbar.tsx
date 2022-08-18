@@ -13,6 +13,7 @@ const Navbar = () => {
   const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
   const { logOut, user } = useContext(userContext)
   //state for responsive navbar
+  const [nav, setNav] = useState<boolean>(false)
     
 
   //logout function
@@ -51,6 +52,11 @@ const Navbar = () => {
   }
 
 
+  //handle navigation 
+  const handleNav = () => {
+    setNav(!nav)
+  }
+
   return (
     <div className="navbar">
 
@@ -64,7 +70,7 @@ const Navbar = () => {
 
 
 
-      <div className='buttons'>
+      {!nav && <div className='navbar__buttons show'>
         {user ? (
           <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
         ) : (
@@ -74,6 +80,27 @@ const Navbar = () => {
           </>
         )}
       </div>
+      }
+
+
+      <div className="toggle">
+        {nav && <div className='navbar__buttons'>
+          {user ? (
+            <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
+          ) : (
+            <>
+              <button type='button' onClick={signup} className='navbar__buttons__signup'>Sign Up</button>
+              <button type='button' onClick={signin} className='navbar__buttons__signin'>Sign In</button>
+            </>
+          )}
+        </div>
+        }
+      </div>
+
+
+      
+
+        
 
       
       <div className="navbar__user">
@@ -87,6 +114,8 @@ const Navbar = () => {
           <AiOutlineShopping /><span className="navbar__cart__qty">{cartItems.length}</span>
         </button>
       </div>
+
+      <div onClick={handleNav}><p>vhjdjd</p></div>
      
     </div>
   )
