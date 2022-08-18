@@ -6,6 +6,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { urlFor } from '../LIB/client';
+import { BiTrash, BiTrashAlt } from 'react-icons/bi'
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
 const Favorites = () => {
   const router = useRouter()
@@ -48,25 +50,19 @@ const Favorites = () => {
   return (
     <div>
       <Toaster />
+    <div className="favorite__items">
       {favorites?.map((item: any) => (
-        <div onClick={navigateToPage} className='favorite__section'>
-            <div className="image">
-              <img 
-              src={urlFor(item.image[0])}
-              width={280}
-              height={280}
-              className=""
-              />
-            </div>
-            <div className='favorite__info'>
-              <h1>{item.name}</h1>
-              <h4>Price : ${item.price}</h4>
-              <h4>Category : {item.category}</h4>
-            </div>
-            <Link href={`/product/${item.slug}`}>G to product</Link>
-            <button onClick={() => handleDelete(item.id)} className='delete__favorite'>delete</button>
+        <div className='favorite__section'>
+          <img  src={urlFor(item.image[0])} width={150} height={150} className="feature__image" />
+          <h2>{item.name}</h2>
+          <h4>Price : ${item.price}</h4>
+          <h4>Category : {item.category}</h4>
+          <Link href={`/product/${item.slug}`}><AiOutlineArrowRight style={{cursor: 'pointer'}} /></Link>
+          <button onClick={() => handleDelete(item.id)} className='delete__favorite'><BiTrash style={{marginRight: '4px'}} />delete</button>
         </div>
         ))}
+    </div>
+     
     </div>
   )
 }
