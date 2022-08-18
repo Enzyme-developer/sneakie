@@ -79,6 +79,14 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
     }, [option])
 
 
+  const setAll = () => {
+    setProductItems(products)
+    window.scrollTo({
+      top: 1300,
+      behavior: 'smooth',
+    });
+  }
+
   
   // clear all filters
   const clearFilter = () => {
@@ -101,7 +109,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         {/* categories */}
         <div className='category'>
-          <div className='category__all' onClick={() => setProductItems(products)}>All</div> 
+          <div className='category__all' onClick={setAll}>All</div> 
           {categories.map((category: any, index: number) => (
           <div className='single__category' key={index} onClick={ () =>filterItem(category)}>{category}</div>
           ))}

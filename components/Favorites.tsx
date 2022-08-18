@@ -49,23 +49,22 @@ const Favorites = () => {
     <div>
       <Toaster />
       {favorites?.map((item: any) => (
-        <div onClick={navigateToPage}>
-          <Link href={`/product/${item.slug}`}>
+        <div onClick={navigateToPage} className='favorite__section'>
             <div className="image">
               <img 
-              src={urlFor(item.image && item.image[0])}
+              src={urlFor(item.image[0])}
               width={280}
               height={280}
               className=""
               />
             </div>
-            <div>
+            <div className='favorite__info'>
               <h1>{item.name}</h1>
-              <h3>${item.price}</h3>
-              <h3>${item.category}</h3>
+              <h4>Price : ${item.price}</h4>
+              <h4>Category : {item.category}</h4>
             </div>
-          </Link>
-          <button onClick={() => handleDelete(item.id)}>delete</button>
+            <Link href={`/product/${item.slug}`}>G to product</Link>
+            <button onClick={() => handleDelete(item.id)} className='delete__favorite'>delete</button>
         </div>
         ))}
     </div>

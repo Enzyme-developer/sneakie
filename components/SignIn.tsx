@@ -29,17 +29,20 @@ const SignIn = () => {
   
 
   return (
+  
     <div>
-      <Toaster />
+    <Toaster />
+    <div className="register">
       <label>Email address</label>
       <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' />
       <label>Password</label>
       <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='12regdj'/>
-      <button onClick={signInNewUser}>signIn</button>
-      <p>{error}</p>
-      <p>Not Registered? 
-        <Link href='/sign_up'>Sign up</Link>
+      <button className='signin' onClick={signInNewUser}>signIn</button>
+      <p className='error'>{error}</p>
+      <p className='correct'>Not Registered? 
+        <Link href='/sign_up'> Sign up</Link>
       </p>
+    </div>
     </div>
   )
 }

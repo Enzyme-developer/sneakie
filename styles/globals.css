@@ -18,8 +18,10 @@ a{
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 0 1rem  ;
-  height: 8vh;
+  padding: 1rem  ;
+  box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
 }
 
 .navbar__logo{
@@ -483,19 +485,19 @@ select {
 
 @media (max-width:768px) {
   .footer__banner {
-    padding: 3rem 0 0;
+    padding: 0;
   }
 
   .footer__banner__container{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: unset;
     align-items: unset;
     width: 100%;
   }
 
   .footer__banner__text{
-    padding: 1rem;
+    padding: 3rem 1rem;
   }
 
   .footer__banner__text h1{
@@ -511,16 +513,98 @@ select {
     width: 100vw;
     display:flex;
     justify-content: unset;
-    margin-top: 2rem;
     overflow-x: hidden;
   }
   
   .footer-banner-image{
     border-radius: 0;
     width: 100vw;
-    height: 500px;
+    height: 400px;
   }
 } 
+
+
+
+/* sign in and sign up */
+.register{
+  margin: 2rem auto 0;
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.register label {
+  font-size: 1rem;
+}
+
+.register input {
+  border: 1px solid gray;
+  margin: 1rem 0 2rem;
+  outline: none;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.signup {
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  text-align: center;
+  padding: .5rem;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  background-color: blue;
+  color: white;
+}
+
+.register .correct {
+  text-align: center;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+
+.register .error {
+  text-align: center;
+  padding: 1rem 0;
+  cursor: pointer;
+  color: red;
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.signin{
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  text-align: center;
+  padding: .5rem;
+  margin: 1rem 0;
+  font-size: 1.2rem;
+  color: white;
+  background-color: #00274b;
+}
+
+
+
+/* favorite items */
+.favorite__section {
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.favorite__item {
+  box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
+  -webkit-box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px 3px 6px 0px rgba(0,0,0,0.75);
+}
 
 
 
