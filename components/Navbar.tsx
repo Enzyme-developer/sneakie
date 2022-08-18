@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai'
+import { MdOutlineFavoriteBorder } from 'react-icons/md'
 import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 import { userContext } from '../context/AuthContext';
@@ -13,7 +14,6 @@ const Navbar = () => {
   const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
   const { logOut, user } = useContext(userContext)
   //state for responsive navbar
-  const [nav, setNav] = useState<boolean>(false)
     
 
   //logout function
@@ -51,11 +51,7 @@ const Navbar = () => {
     router.push ('/cart')
   }
 
-
-  //handle navigation 
-  const handleNav = () => {
-    setNav(!nav)
-  }
+  
 
   return (
     <div className="navbar">
@@ -66,13 +62,14 @@ const Navbar = () => {
         </p>
       </div>
 
-      
 
 
-
-      {!nav && <div className='navbar__buttons show'>
+      <div className='navbar__buttons'>
         {user ? (
-          <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
+          <div className='navbar__buttons__signed-in'>
+            <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
+            <Link href={'/favorites'}><MdOutlineFavoriteBorder className='navbar__buttons__favorite' /></Link>
+          </div>
         ) : (
           <>
             <button type='button' onClick={signup} className='navbar__buttons__signup'>Sign Up</button>
@@ -80,27 +77,6 @@ const Navbar = () => {
           </>
         )}
       </div>
-      }
-
-
-      <div className="toggle">
-        {nav && <div className='navbar__buttons'>
-          {user ? (
-            <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
-          ) : (
-            <>
-              <button type='button' onClick={signup} className='navbar__buttons__signup'>Sign Up</button>
-              <button type='button' onClick={signin} className='navbar__buttons__signin'>Sign In</button>
-            </>
-          )}
-        </div>
-        }
-      </div>
-
-
-      
-
-        
 
       
       <div className="navbar__user">
@@ -114,8 +90,6 @@ const Navbar = () => {
           <AiOutlineShopping /><span className="navbar__cart__qty">{cartItems.length}</span>
         </button>
       </div>
-
-      <div onClick={handleNav}><p>vhjdjd</p></div>
      
     </div>
   )

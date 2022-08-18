@@ -6,17 +6,15 @@ import IndividualProduct from '../components/IndividualProduct';
 import Favorites from '../components/Favorites';
 
 
-
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
   const [text, setText] = useState<string>('')
   const [option, setOption] = useState<string>('')
   const [productItems, setProductItems] = useState<any[]>(products)
-  const [categoryType, setCategortType] = useState('all')
   const [range, setRange] = useState<number>(0)
-  const categories: [key1: string, key2: string, key3:string, key:string] = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
+  const categories: [key1: string, key2: string, key3: string, key: string] = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
   
-  // console.log(productItems)
+  console.log(productItems)
   // console.log(option)
 
   
@@ -69,6 +67,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
     }, [option])
 
 
+  
   // clear all filters
   const clearFilter = () => {
     setProductItems(products)
@@ -98,8 +97,8 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         {/* categories */}
         <div>
-          {categories.map((category: any) => (
-            <h1 onClick={ () =>filterItem(category)}>{category}</h1>
+          {categories.map((category: any, index: number) => (
+            <div key={index} onClick={ () =>filterItem(category)}>{category}</div>
           ))}
           <button onClick={() => setProductItems(products)}>All</button> 
         </div>

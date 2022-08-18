@@ -4,11 +4,17 @@ import { db } from '../firebase';
 import { userContext } from '../context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const Favorites = () => {
+  const router = useRouter()
   const { user } = useContext(userContext)
   const [ favorites, setFavorites ] = useState<any>([])
 
+
+  const navigateToPage = () => {
+    router.push(``)
+  }
 
   useEffect(() => {
   onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
@@ -42,13 +48,16 @@ const Favorites = () => {
     <div>
       <Toaster />
       {favorites?.map((item: any) => (
-        <Link  href={`/`}>
-          <div>
-            <h1>{item.name}</h1>
-            <h3>${item.price}</h3>
-            <button onClick={() => handleDelete(item.id)}>delete</button>
-          </div>
-        </Link>
+        <div onClick={navigateToPage}>
+          <Link  href={`/product/${item.slug}`}>
+            <div>
+              <h1>{item.name}</h1>
+              <h3>${item.price}</h3>
+              <h3>${item.category}</h3>
+            </div>
+          </Link>
+          <button onClick={() => handleDelete(item.id)}>delete</button>
+        </div>
         ))}
     </div>
   )

@@ -9,7 +9,7 @@ import { db } from '../firebase';
 import toast from 'react-hot-toast';
 
 const IndividualProduct = ({ product }: any) => {
-  const { onAdd } = useStateContext();
+  const { onAdd, qty } = useStateContext();
   const [save, setSave] = useState(false)
   const { user } = useContext(userContext)
 
@@ -24,6 +24,10 @@ const IndividualProduct = ({ product }: any) => {
           id: product._id,
           name: product.name,
           price: product.price,
+          category: product.category,
+          details: product.details,
+          slug: product.slug.current,
+          image: product.image,
         }),
 
       });
