@@ -4,33 +4,29 @@ import footerImage from '../assets/footer.jpg'
 
 import { urlFor } from '../LIB/client';
 
-const FooterBanner = ({ footerBanner: { discount, largeText1, largeText2, saleTime, smallText, midText, desc, product, buttonText, image } } : any) => {
+const FooterBanner = ({ footerBanner: { discount, largeText1, largeText2, saleTime, smallText, midText, desc, product, buttonText, footerimage } } : any) => {
 
   return (
-    <div className="footer-banner-container">
+    <div className="footer__banner" style={{backgroundColor: "#00274b"}}>
 
-        {/* <div className="left">
-          <p>{discount}</p>
-          <h3>{largeText1}</h3>
-          <h3>{largeText2}</h3>
-          <p>{saleTime}</p>
-        </div>
-       
+    <div className="footer__banner__container">
 
-        <div className="right">
-          <p>{smallText}</p>
-          <h3>{midText}</h3>
-          <p>{desc}</p>
-          <Link href={`/product/${product}`}>
-            <button type="button">{buttonText}</button>
-          </Link>
-        </div> */}
+      <div className='footer__banner__text'>
+        <h1>{largeText1}</h1>
+        <h3>{smallText}</h3>
+        <h3>{midText} for {saleTime}</h3>
+        <Link href={`/product/${product}`}>
+          <button type="button">{buttonText}</button>
+        </Link>
+      </div>
 
-      <div className="footer__banner">
-        <img src={footerImage.src} className='footer__banner__image' />
+      <div className='footer-banner-image-div'>
+        <img src={urlFor(footerimage)} alt="Cart" className="footer-banner-image" />
       </div>
 
     </div>
+  </div>
+
   )
 }
 

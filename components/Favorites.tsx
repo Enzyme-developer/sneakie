@@ -5,6 +5,7 @@ import { userContext } from '../context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { urlFor } from '../LIB/client';
 
 const Favorites = () => {
   const router = useRouter()
@@ -49,7 +50,15 @@ const Favorites = () => {
       <Toaster />
       {favorites?.map((item: any) => (
         <div onClick={navigateToPage}>
-          <Link  href={`/product/${item.slug}`}>
+          <Link href={`/product/${item.slug}`}>
+            <div className="image">
+              <img 
+              src={urlFor(item.image && item.image[0])}
+              width={280}
+              height={280}
+              className=""
+              />
+            </div>
             <div>
               <h1>{item.name}</h1>
               <h3>${item.price}</h3>
