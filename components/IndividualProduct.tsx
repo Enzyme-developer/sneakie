@@ -7,13 +7,15 @@ import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../LIB/client';
 import { db } from '../firebase';
 import toast from 'react-hot-toast';
+import { MdOutlineFavoriteBorder } from 'react-icons/md';
 
 const IndividualProduct = ({ product }: any) => {
+
   const { onAdd, qty } = useStateContext();
   const [save, setSave] = useState(false)
   const { user } = useContext(userContext)
 
-    //save coin for each user in different paths
+  //save coin for each user in different paths
   const itemPath = doc(db, 'users', `${user?.email}`);
 
   const saveItem = async () => {
@@ -47,8 +49,8 @@ const IndividualProduct = ({ product }: any) => {
         <div className="product-card">
           <img 
             src={urlFor(product.image && product.image[0])}
-            width={300}
-            height={300}
+            width={280}
+            height={280}
             className="product-image"
           />
           <p className="product-name">{product.name}</p>
@@ -56,7 +58,7 @@ const IndividualProduct = ({ product }: any) => {
 
         </div>
       </Link>
-      <button onClick={() => saveItem()}>favorite</button>
+      <button className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
     </div>
   )
 }

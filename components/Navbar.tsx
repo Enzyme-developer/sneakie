@@ -41,10 +41,6 @@ const Navbar = () => {
   }
 
 
-  //get username
-  let nameMatch = user?.email?.match(/^([^@]*)@/);
-  const name = nameMatch ? nameMatch[1] : null;
-
 
   //redirect to cart
   const goToCart = () => {
@@ -80,12 +76,6 @@ const Navbar = () => {
 
       
       <div className="navbar__user">
-        <div className='navbar__username'>
-          {!user ? ('') :
-            (<p>Hi, {name}</p>)
-          }
-        </div>
-        
         <button type="button" className="navbar__cart" onClick={goToCart}>
           <AiOutlineShopping /><span className="navbar__cart__qty">{cartItems.length}</span>
         </button>

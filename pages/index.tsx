@@ -4,6 +4,7 @@ import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
 import Favorites from '../components/Favorites';
+import { GrClear } from 'react-icons/gr'
 
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
@@ -14,7 +15,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   const [range, setRange] = useState<number>(0)
   const categories: [key1: string, key2: string, key3: string, key: string] = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
   
-  console.log(productItems)
+  // console.log(productItems)
   // console.log(option)
 
   
@@ -73,53 +74,57 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
     setProductItems(products)
  }
 
-
-
     return (
       <div>
  
         {/* Banner */}
         <Banner bannerData={bannerData.length && bannerData[0]} />
     
+        
         {/* Heading */}
-        <div className="products-heading">
-          <h2>Best Seller Sneakers</h2>
-          <p>Be the envy of your friends</p>
+        <div className="products__heading">
+          <h2>Best Products at the best prices</h2>
+          {/* <p>Shop with us and be the envy of your friends</p> */}
         </div>
 
         
-        {/* filter by sorting */}
-        <select onChange={(e) => setOption(e.target.value)}>
-          <option value="lowest">sort by Lowest Price</option>
-          <option value="highest">sort by Highest Price</option>
-        </select>
-
-        
         {/* categories */}
-        <div>
+        <div className='category'>
           {categories.map((category: any, index: number) => (
-            <div key={index} onClick={ () =>filterItem(category)}>{category}</div>
+            <div className='single__category' key={index} onClick={ () =>filterItem(category)}>{category}</div>
           ))}
-          <button onClick={() => setProductItems(products)}>All</button> 
+          <div className='category__all' onClick={() => setProductItems(products)}>All</div> 
         </div>
 
         
         {/* search by text */}
-        <div>
-          <input type="text" onChange={(e) => setText(e.target.value)}/>
+        <div className='search'>
+          <input className='search__input' type="text" placeholder='search' onChange={(e) => setText(e.target.value)}/>
         </div>
 
         
+        <div className="filter">
         {/* sort by price range */}
         <div>
           <label htmlFor="priceRange">Price Filter</label>
-          <input onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
+          <input className='range' onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
         </div>
 
+        {/* filter by sorting */}
+        <div className="select">
+          <select onChange={(e) => setOption(e.target.value)}>
+            <option value="lowest">sort by Lowest Price</option>
+            <option value="highest">sort by Highest Price</option>
+          </select>
+        </div>
+        </div>
+        
+
         
         {/* clear all filters */}
-        <button onClick={clearFilter}>Clear Filter</button>
+        <button onClick={clearFilter} className='clear'>Clear Filter</button>
+
     
         <div className="products-container">
           {productItems.length > 0 ? (
@@ -138,8 +143,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
             : (<h1>No Result</h1>)
           } 
         </div>
-
-        <Favorites />
+        
         <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
       </div>
     );
