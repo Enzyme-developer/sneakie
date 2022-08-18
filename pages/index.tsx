@@ -3,8 +3,7 @@ import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
-import Favorites from '../components/Favorites';
-import { GrClear } from 'react-icons/gr'
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
@@ -25,6 +24,10 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
       return newVal.category === curItems; 
     });
     setProductItems(newItem);
+    window.scrollTo({
+      top: 1300,
+      behavior: 'smooth',
+  });
   };
 
 
@@ -55,12 +58,20 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         a.price - b.price
       )
       setProductItems(filteredOption)
+        window.scrollTo({
+      top: 1300,
+      behavior: 'smooth',
+    });
 
     } else if (option == 'lowest') {
       const filteredOption = products.sort((a: Provider, b: Provider) =>
         b.price - a.price
       )
       setProductItems(filteredOption)
+      window.scrollTo({
+        top: 1300,
+        behavior: 'smooth',
+    });
 
     } else {
       setProductItems(products)
@@ -75,8 +86,8 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
  }
 
     return (
-      <div>
- 
+      <div>     
+        <Toaster />
         {/* Banner */}
         <Banner bannerData={bannerData.length && bannerData[0]} />
     
@@ -90,10 +101,10 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         {/* categories */}
         <div className='category'>
-          {categories.map((category: any, index: number) => (
-            <div className='single__category' key={index} onClick={ () =>filterItem(category)}>{category}</div>
-          ))}
           <div className='category__all' onClick={() => setProductItems(products)}>All</div> 
+          {categories.map((category: any, index: number) => (
+          <div className='single__category' key={index} onClick={ () =>filterItem(category)}>{category}</div>
+          ))}
         </div>
 
         
@@ -143,7 +154,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
             : (<h1>No Result</h1>)
           } 
         </div>
-        
+
         <FooterBanner footerBanner={bannerData.length && bannerData[0]} />
       </div>
     );
