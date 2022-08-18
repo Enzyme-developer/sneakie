@@ -1,23 +1,21 @@
 import React, {useContext, useEffect, useState} from 'react';
 import Link from 'next/link';
 import { AiOutlineShopping } from 'react-icons/ai'
-
-import Cart from './Cart';
 import { useStateContext } from '../context/StateContext';
 import { useRouter } from 'next/router';
 import { userContext } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 
+
 const Navbar = () => {
   const router = useRouter()
-
   //get functions from the context
   const { showCart, setShowCart, totalQuantities, cartItems, storage } = useStateContext();
   const { logOut, user } = useContext(userContext)
   //state for responsive navbar
-  const [nav , handleNav ] = useState(false)
-  const [quantity , setQuantity ] = useState(0)
     
+
+  //logout function
   const handlelogOut = async (e : any) => {
     try {
       await logOut()
@@ -29,52 +27,67 @@ const Navbar = () => {
     }
   }
 
+
+  //signIn redirect button
   const signin = () => {
     router.push('/sign_in')
   }
 
+
+  //signUp redirect button
   const signup = () => {
     router.push('/sign_up')
   }
 
+
+  //get username
   let nameMatch = user?.email?.match(/^([^@]*)@/);
   const name = nameMatch ? nameMatch[1] : null;
-  // console.log(nameMatch)
-  // console.log(user)
 
+
+  //redirect to cart
   const goToCart = () => {
     router.push ('/cart')
   }
 
 
   return (
-    <div className="navbar-container">
+    <div className="navbar">
+
       <div>
-        <p className="logo">
+        <p className="navbar__logo">
           <Link href="/">Sneakie</Link>
         </p>
       </div>
 
-      <div>
-        {!user ? ('') :
-          (<p>Hi, {name}</p>)
-        }
-      </div>
+      
 
-      <button onClick={handlelogOut}>logout</button>
+
 
       <div className='buttons'>
-        <button type='button' onClick={signup} className='sign-up'>Sign Up</button>
-        <button type='button' onClick={signin} className='sign-in'>Sign In</button>
-        <button type='button' className='sign-out'>Logout</button>
+        {user ? (
+          <button type='button' onClick={handlelogOut} className='navbar__buttons__logout'>logout</button>
+        ) : (
+          <>
+            <button type='button' onClick={signup} className='navbar__buttons__signup'>Sign Up</button>
+            <button type='button' onClick={signin} className='navbar__buttons__signin'>Sign In</button>
+          </>
+        )}
       </div>
 
-      <button type="button" className="cart-icon" onClick={goToCart}>
-        <AiOutlineShopping />
-        <span className="cart-item-qty">{cartItems.length}</span>
-      </button>
-
-      {/* {showCart && <Cart />} */}
+      
+      <div className="navbar__user">
+        <div className='navbar__username'>
+          {!user ? ('') :
+            (<p>Hi, {name}</p>)
+          }
+        </div>
+        
+        <button type="button" className="navbar__cart" onClick={goToCart}>
+          <AiOutlineShopping /><span className="navbar__cart__qty">{cartItems.length}</span>
+        </button>
+      </div>
+     
     </div>
   )
 }

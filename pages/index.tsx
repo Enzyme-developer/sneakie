@@ -3,93 +3,45 @@ import { client } from '../LIB/client';
 import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
-import Signup from '../components/Signup';
 import Favorites from '../components/Favorites';
+
 
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
-  const [text, setText] = useState('')
-  const [option, setOption] = useState('')
-  const [productItems, setProductItems] = useState<any>(products)
+  const [text, setText] = useState<string>('')
+  const [option, setOption] = useState<string>('')
+  const [productItems, setProductItems] = useState<any[]>(products)
   const [categoryType, setCategortType] = useState('all')
-  const [range, setRange] = useState(0)
-  const categories: any = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
+  const [range, setRange] = useState<number>(0)
+  const categories: [key1: string, key2: string, key3:string, key:string] = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
   
-  console.log(productItems)
-  console.log(option)
+  // console.log(productItems)
+  // console.log(option)
 
   
-  const filterItem = (curItems: any) => {
-    const newItem = products.filter((newVal: any) => {
+  //filter by category
+  const filterItem = (curItems: string) => {
+    const newItem : any = products.filter((newVal: any) => {
       return newVal.category === curItems; 
     });
     setProductItems(newItem);
   };
 
 
-  const filterItemByPrice = (range: any) => {
-    const newItem = products.filter((newVal: any) => {
-      return newVal.price <= range; 
-    });
-    setProductItems(newItem);
-  };
-
-
-  // const filterItemsBySorting = (option: any) => {
-  //     if (option == 'lowest') {
-  //       const newItems = productItems.sort((a: any, b: any) => {
-  //       return b.price - a.price }
-  //     )
-  //     console.log(option)
-  //     setProductItems(newItems)
-      
-  //     } else if(option =='highest') {
-  //       const newItems = productItems.sort((a: any, b: any) => {
-  //         return a.price - b.price }
-  //     )
-  //     setProductItems(newItems)
-  //     } else {
-  //       return productItems
-  //   }
-  // };
+  //interface for each product
+  interface Provider {
+    price: number,
+    name: string,
+    slug: string,
+    category: string
+}
 
 
 
-  // productItems.filter((product: any) => {
-  //   if (text === '') {
-  //     return product
-  //   } else if (
-  //     product.name.toLowerCase().includes(text.toLowerCase())
-  //   ) {
-  //     return product
-  //   }
-  // })
-
-
-  // useEffect(() => {
-  //   if (text !== '') {
-  //     const textFiltered = productItems.filter((item: any) => (
-  //       item.name.toLowerCase().includes(text.toLowerCase())
-  //     ))
-  //     setProductItems(textFiltered)
-  //   } else {
-  //     setProductItems(products)
-  //   }
-  // }, [text])
-
-
-
-
+  // filter by price range
   useEffect(() => {
-    // if (range > 0) {
-    //   const filteredRange = productItems.filter((item: any) => (
-    //     item.price <= range
-    //   ))
-    //   // console.log(filteredRange)
-    //   setProductItems(filteredRange)
-    // } 
-      const newItem = products.filter((newVal: any) => {
+      const newItem = products.filter((newVal: Provider) => {
         return newVal.price <= range; 
       });
       setProductItems(newItem);
@@ -97,35 +49,28 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
 
 
+  //filter by sorting
   useEffect(() => {
     if (option == 'highest') {
-      const filteredOption = productItems.sort((a: any, b: any) =>
+      const filteredOption = products.sort((a: Provider, b: Provider) =>
         a.price - b.price
       )
       setProductItems(filteredOption)
 
     } else if (option == 'lowest') {
-      const filteredOption = productItems.sort((a: any, b: any) =>
+      const filteredOption = products.sort((a: Provider, b: Provider) =>
         b.price - a.price
       )
       setProductItems(filteredOption)
 
     } else {
-      const filteredOption = productItems.sort((a: any, b: any) =>
-      a.name - b.name
-    )
-    setProductItems(filteredOption)
+      setProductItems(products)
     } 
     }, [option])
-  
-  
 
 
+  // clear all filters
   const clearFilter = () => {
-    setRange(0)
-    setCategortType('all')
-    setText('')
-    setOption('')
     setProductItems(products)
  }
 
@@ -134,20 +79,24 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
     return (
       <div>
  
+        {/* Banner */}
         <Banner bannerData={bannerData.length && bannerData[0]} />
     
+        {/* Heading */}
         <div className="products-heading">
           <h2>Best Seller Sneakers</h2>
           <p>Be the envy of your friends</p>
         </div>
 
+        
+        {/* filter by sorting */}
         <select onChange={(e) => setOption(e.target.value)}>
           <option value="lowest">sort by Lowest Price</option>
           <option value="highest">sort by Highest Price</option>
         </select>
-        {/* <button onClick={() => filterItemsBySorting(option)}>Sort Products</button> */}
 
         
+        {/* categories */}
         <div>
           {categories.map((category: any) => (
             <h1 onClick={ () =>filterItem(category)}>{category}</h1>
@@ -155,18 +104,23 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
           <button onClick={() => setProductItems(products)}>All</button> 
         </div>
 
+        
+        {/* search by text */}
         <div>
           <input type="text" onChange={(e) => setText(e.target.value)}/>
         </div>
 
+        
+        {/* sort by price range */}
         <div>
           <label htmlFor="priceRange">Price Filter</label>
           <input onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
-          <button onChange={() => filterItemByPrice(range)} >Apply price Filter</button>
-          <button onClick={clearFilter}>Clear Filter</button>
         </div>
 
+        
+        {/* clear all filters */}
+        <button onClick={clearFilter}>Clear Filter</button>
     
         <div className="products-container">
           {productItems.length > 0 ? (
