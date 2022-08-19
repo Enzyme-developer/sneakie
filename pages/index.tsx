@@ -8,11 +8,13 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
-  const [text, setText] = useState<string>('')
+  const [text, setText] = useState('')
+  const [test, setTest] = useState<string>('')
   const [option, setOption] = useState<string>('')
   const [productItems, setProductItems] = useState<any[]>(products)
   const [range, setRange] = useState<number>(0)
-  const categories: [key1: string, key2: string, key3: string, key: string] = ["Footwear", "Clothings",  "Lighting", "Gadgets"]
+  const [category, setCategory] = useState<string>('All')
+  const categories: [key1: string, key2: string, key3: string, key4: string, key5: string,] = ["All", "Footwear", "Clothings",  "Lighting", "Gadgets"]
   
   // console.log(productItems)
   // console.log(option)
@@ -20,15 +22,24 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   
   //filter by category
   const filterItem = (curItems: string) => {
-    const newItem : any = products.filter((newVal: any) => {
-      return newVal.category === curItems; 
+    if (category == 'All') {
+      setProductItems(products)
+    } else {
+      const newItem: any = products.filter((newVal: any) => {
+        return newVal.category === curItems;
+      });
+      window.scrollTo({
+        top: 1000,
+        behavior: 'smooth',
     });
-    setProductItems(newItem);
-    window.scrollTo({
-      top: 1300,
-      behavior: 'smooth',
-  });
+      setProductItems(newItem);
+    }
   };
+
+  useEffect(() => {
+    filterItem(category)
+  }, [category])
+  
 
 
   //interface for each product
@@ -51,47 +62,59 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
 
 
+  //filter by text 
+  // useEffect(() => { 
+  //   if (text == '' ){
+  //     setProductItems(products)
+  //   } else {
+  //     const newItem = products.filter((newVal: Provider) => {
+  //       return newVal.name.toLowerCase().includes(text.toLowerCase()); 
+  //     });
+  //     setProductItems(newItem);
+  //   }
+  // }, [text])
+
+
+
   //filter by sorting
   useEffect(() => {
-    if (option == 'highest') {
-      const filteredOption = products.sort((a: Provider, b: Provider) =>
-        a.price - b.price
-      )
-      setProductItems(filteredOption)
-        window.scrollTo({
-      top: 1300,
-      behavior: 'smooth',
-    });
-
-    } else if (option == 'lowest') {
-      const filteredOption = products.sort((a: Provider, b: Provider) =>
-        b.price - a.price
-      )
-      setProductItems(filteredOption)
-      window.scrollTo({
-        top: 1300,
-        behavior: 'smooth',
-    });
-
-    } else {
-      setProductItems(products)
-    } 
+      if (option === 'highest') {
+        const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? 1 : -1)
+        setProductItems(filteredOption)
+      }
+        else if (option === 'lowest') {
+        const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? -1 : 1)
+        setProductItems(filteredOption)
+      } else {
+        setProductItems(products)
+      }
     }, [option])
 
+    console.log(option)
 
-  const setAll = () => {
-    setProductItems(products)
-    window.scrollTo({
-      top: 1300,
-      behavior: 'smooth',
-    });
-  }
 
   
   // clear all filters
   const clearFilter = () => {
-    setProductItems(products)
+    setRange(100)
+    // setProductItems(products)
+    setText('')
  }
+
+ 
+
+  {if (!products) return (<h1>No result</h1>)}
+
+  function onSelectionChange(e: any) {
+    const sortDirection = e.target.value;
+    const copyArray = [...products]; // create a new array & not mutate state
+
+    copyArray.sort((a: Provider, b:Provider) => {
+      return sortDirection === "0" ? a.price - b.price : b.price - a.price;
+    });
+    setProductItems(copyArray); //re-render
+  }
+
 
     return (
       <div>     
@@ -109,16 +132,15 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         {/* categories */}
         <div className='category'>
-          <div className='category__all' onClick={setAll}>All</div> 
-          {categories.map((category: any, index: number) => (
-          <div className='single__category' key={index} onClick={ () =>filterItem(category)}>{category}</div>
+          {categories.map((singleCategory: string, index: number) => (
+          <div className={singleCategory === category? 'single__category__tab' : 'single__category'} key={index} onClick={() => setCategory(singleCategory)}>{singleCategory}</div>
           ))}
         </div>
 
         
         {/* search by text */}
         <div className='search'>
-          <input className='search__input' type="text" placeholder='search' onChange={(e) => setText(e.target.value)}/>
+          <input className='search__input' type="text" placeholder='search' onChange={(e) => setText(e.target.value)} />
         </div>
 
         
@@ -130,12 +152,13 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
           <div>{range}</div>
         </div>
 
+          
         {/* filter by sorting */}
         <div className="select">
-          <select onChange={(e) => setOption(e.target.value)}>
-            <option value="lowest">sort by Lowest Price</option>
-            <option value="highest">sort by Highest Price</option>
-          </select>
+        <select defaultValue={0} onChange={onSelectionChange}>
+          <option value={0}>Ascending</option>
+          <option value={1}>Descending</option>
+        </select>
         </div>
         </div>
         
@@ -146,20 +169,11 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
     
         <div className="products-container">
-          {productItems.length > 0 ? (
-            productItems.filter((currentProduct: any) => {
-              if (text === '') {
-                return currentProduct
-              } else if (
-                currentProduct.name.toLowerCase().includes(text.toLowerCase())
-              ) {
-                return currentProduct
-              }
-            }
-            ).map((product: any) => (
+          {productItems.length > 0? (
+            productItems.map((product: any) => (
                 <IndividualProduct key={product._id} product={product} />
               )))
-            : (<h1>No Result</h1>)
+            : (<h1 style={{}}>No Result</h1>)
           } 
         </div>
 
