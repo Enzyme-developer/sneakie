@@ -8,6 +8,7 @@ import { urlFor } from '../LIB/client';
 import { db } from '../firebase';
 import toast from 'react-hot-toast';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
+import { BsCart4 } from 'react-icons/bs';
 
 const IndividualProduct = ({ product }: any) => {
 
@@ -58,7 +59,12 @@ const IndividualProduct = ({ product }: any) => {
 
         </div>
       </Link>
-      <button className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
+
+      <div className="index__buttons" style={{ display: 'flex', alignItems: "center", gap: '15px' }}>
+        <button className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
+        <button onClick={() => onAdd(product, 1)} className='index__add'><BsCart4 style={{marginRight: '5px'}} />Add to cart</button>
+      </div>
+
     </div>
   )
 }

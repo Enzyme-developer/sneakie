@@ -48,10 +48,11 @@ const Favorites = () => {
   
     
   return (
-    <div>
+    <div className='my__favorites'>
       <Toaster />
     <div className="favorite__items">
-      {favorites?.map((item: any) => (
+        {favorites ? (
+        favorites.map((item: any) => (
         <div className='favorite__section'>
           <img  src={urlFor(item.image[0])} width={150} height={150} className="feature__image" />
           <h2>{item.name}</h2>
@@ -60,7 +61,7 @@ const Favorites = () => {
           <Link href={`/product/${item.slug}`}><AiOutlineArrowRight style={{cursor: 'pointer'}} /></Link>
           <button onClick={() => handleDelete(item.id)} className='delete__favorite'><BiTrash style={{marginRight: '4px'}} />delete</button>
         </div>
-        ))}
+        ))) : (<h1>No Item In Favorites</h1>)}
     </div>
      
     </div>
