@@ -8,8 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
-  const [text, setText] = useState('')
-  const [test, setTest] = useState<string>('')
+  const [text, setText] = useState<string>('')
   const [option, setOption] = useState<string>('')
   const [productItems, setProductItems] = useState<any[]>(products)
   const [range, setRange] = useState<number>(0)
@@ -63,41 +62,41 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
 
   //filter by text 
-  // useEffect(() => { 
-  //   if (text == '' ){
-  //     setProductItems(products)
-  //   } else {
-  //     const newItem = products.filter((newVal: Provider) => {
-  //       return newVal.name.toLowerCase().includes(text.toLowerCase()); 
-  //     });
-  //     setProductItems(newItem);
-  //   }
-  // }, [text])
+  useEffect(() => { 
+    if (text == '' ) {
+      setProductItems(products)
+    } else {
+      const newItem = products.filter((newVal: Provider) => {
+        return newVal.name.toLowerCase().includes(text.toLowerCase()); 
+      });
+      setProductItems(newItem);
+    }
+  }, [text])
 
 
 
   //filter by sorting
-  useEffect(() => {
-      if (option === 'highest') {
-        const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? 1 : -1)
-        setProductItems(filteredOption)
-      }
-        else if (option === 'lowest') {
-        const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? -1 : 1)
-        setProductItems(filteredOption)
-      } else {
-        setProductItems(products)
-      }
-    }, [option])
+  // useEffect(() => {
+  //     if (option === 'highest') {
+  //       const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? 1 : -1)
+  //       setProductItems(filteredOption)
+  //     }
+  //       else if (option === 'lowest') {
+  //       const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? -1 : 1)
+  //       setProductItems(filteredOption)
+  //     } else {
+  //       setProductItems(products)
+  //     }
+  //   }, [option])
 
-    console.log(option)
+    // console.log(option)
 
 
   
   // clear all filters
   const clearFilter = () => {
     setRange(100)
-    // setProductItems(products)
+    setProductItems([...products])
     setText('')
  }
 
@@ -140,14 +139,14 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         {/* search by text */}
         <div className='search'>
-          <input className='search__input' type="text" placeholder='search' onChange={(e) => setText(e.target.value)} />
+          <input className='search__input' value={text} type="text" placeholder='search' onChange={(e) => setText(e.target.value)} />
         </div>
 
         
         <div className="filter">
         {/* sort by price range */}
         <div>
-          <label htmlFor="priceRange">Price Filter</label>
+          <label htmlFor="priceRange">Price Filter</label> <br />
           <input className='range' onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
         </div>
@@ -155,17 +154,17 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
           
         {/* filter by sorting */}
         <div className="select">
-        <select defaultValue={0} onChange={onSelectionChange}>
-          <option value={0}>Ascending</option>
-          <option value={1}>Descending</option>
-        </select>
+          <select defaultValue={0} onChange={onSelectionChange}>
+            <option value={0}>Sort By Lowest</option>
+            <option value={1}>Sort by Highest</option>
+          </select>
         </div>
         </div>
         
 
         
         {/* clear all filters */}
-        <button onClick={clearFilter} className='clear'>Clear Filter</button>
+        <button onClick={clearFilter} className='clear'>Clear All Filters</button>
 
     
         <div className="products-container">
