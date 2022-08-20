@@ -19,26 +19,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   // console.log(productItems)
   // console.log(option)
 
-  
   //filter by category
-  // const filterItem = (curItems: string) => {
-  //   if (category == 'All') {
-  //     // const newItem = products.filter((newVal: Provider) => {
-  //     //   return newVal; 
-  //     // });
-  //     setProductItems(products)
-  //   } else {
-  //     const newItem = products.filter((newVal: Provider) => {
-  //       return newVal.name.toLowerCase().includes(text.toLowerCase()) && newVal.category == curItems; 
-  //     });
-  //     setProductItems(newItem);
-  //   //   window.scrollTo({
-  //   //     top: 1000,
-  //   //     behavior: 'smooth',
-  //   // });
-  //   }
-  // };
-
   useEffect(() => {
     if (category == 'All') {
       setProductItems(products)

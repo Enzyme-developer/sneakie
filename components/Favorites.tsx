@@ -15,10 +15,6 @@ const Favorites = () => {
   const [ favorites, setFavorites ] = useState<any>([])
 
 
-  const navigateToPage = () => {
-    router.push(``)
-  }
-
   useEffect(() => {
   onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setFavorites(doc.data()?.favoriteItems);
