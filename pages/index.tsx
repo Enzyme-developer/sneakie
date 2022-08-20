@@ -20,26 +20,37 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
   
   //filter by category
-  const filterItem = (curItems: string) => {
-    if (category == 'All') {
-      const newItem = products.filter((newVal: Provider) => {
-        return newVal.price <= range; 
-      });
-      setProductItems(newItem)
-    } else {
-      const newItem: any = products.filter((newVal: any) => {
-        return newVal.category === curItems  && newVal.price <= range;
-      });
-      window.scrollTo({
-        top: 1000,
-        behavior: 'smooth',
-    });
-      setProductItems(newItem);
-    }
-  };
+  // const filterItem = (curItems: string) => {
+  //   if (category == 'All') {
+  //     // const newItem = products.filter((newVal: Provider) => {
+  //     //   return newVal; 
+  //     // });
+  //     setProductItems(products)
+  //   } else {
+  //     const newItem = products.filter((newVal: Provider) => {
+  //       return newVal.name.toLowerCase().includes(text.toLowerCase()) && newVal.category == curItems; 
+  //     });
+  //     setProductItems(newItem);
+  //   //   window.scrollTo({
+  //   //     top: 1000,
+  //   //     behavior: 'smooth',
+  //   // });
+  //   }
+  // };
 
   useEffect(() => {
-    filterItem(category)
+    if (category == 'All') {
+      setProductItems(products)
+    } else {
+      const newItem = products.filter((newVal: Provider) => {
+        return newVal.name.toLowerCase().includes(text.toLowerCase()) && newVal.category == category; 
+      });
+      setProductItems(newItem);
+    //   window.scrollTo({
+    //     top: 1000,
+    //     behavior: 'smooth',
+    // });
+    }
   }, [category])
   
 
@@ -54,27 +65,39 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
 
 
-  // filter by price range
+  //filter by price range
   useEffect(() => {
-      const newItem = products.filter((newVal: Provider) => {
-        return newVal.price <= range && newVal.category === category; 
+      // const newItem = products.filter((newVal: Provider) => {
+      //   return newVal.price <= range && newVal.category === category; 
+      // });
+      // setProductItems(newItem);
+      const copyArray = [...products]; // create a new array & not mutate state
+  
+      copyArray.filter((newVal: any) => {
+        return newVal.price <= range;
       });
-      setProductItems(newItem);
+      setProductItems(copyArray); //re-render
   }, [range])
 
 
 
   //filter by text 
   useEffect(() => { 
-    if (text == '' ) {
-      setProductItems(products)
-    } else {
+    if (text == '' && category == 'All' ) {
+      setProductItems(products);
+    } else if (text != '' && category == 'All' ) {
       const newItem = products.filter((newVal: Provider) => {
         return newVal.name.toLowerCase().includes(text.toLowerCase()); 
       });
       setProductItems(newItem);
+    } 
+    else {
+      const newItem = products.filter((newVal: Provider) => {
+        return newVal.name.toLowerCase().includes(text.toLowerCase()) && newVal.category == category; 
+      });
+      setProductItems(newItem);
     }
-  }, [text])
+  }, [text, category])
 
   
   // clear all filters
@@ -129,11 +152,11 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         <div className="filter">
         {/* sort by price range */}
-        <div>
+        {/* <div>
           <label htmlFor="priceRange">Price Filter</label> <br />
           <input className='range' onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
-        </div>
+        </div> */}
 
           
         {/* filter by sorting */}
