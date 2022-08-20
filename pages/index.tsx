@@ -4,6 +4,7 @@ import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
 import toast, { Toaster } from 'react-hot-toast';
+import { CategoryOutlined } from '@material-ui/icons';
 
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
@@ -67,17 +68,69 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
 
   //filter by price range
   useEffect(() => {
-      // const newItem = products.filter((newVal: Provider) => {
-      //   return newVal.price <= range && newVal.category === category; 
-      // });
-      // setProductItems(newItem);
-      const copyArray = [...products]; // create a new array & not mutate state
-  
-      copyArray.filter((newVal: any) => {
-        return newVal.price <= range;
-      });
-      setProductItems(copyArray); //re-render
-  }, [range])
+
+    //without filtering
+      if (text == '' && category == 'All' && range == 0 ) {
+        setProductItems(products);
+      }
+      
+    
+    //filtering with three params
+      else if (range != 0 && category != 'All' && text != '') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.price <= range && newVal.category == category && newVal.name.toLowerCase().includes(text.toLowerCase()); 
+        });
+        setProductItems(newItem);
+      }  
+
+      
+      else if (range != 0 && category == 'All') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.price <= range; 
+        });
+        setProductItems(newItem);
+      }  
+        
+        
+      //price and text
+      else if (range != 0 && text != '') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.price <= range &&newVal.name.toLowerCase().includes(text.toLowerCase()); 
+        });
+        setProductItems(newItem);
+      }  
+
+
+        //price and category
+      else if (range != 0 && category != 'All') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.price <= range && newVal.category == category; 
+        });
+        setProductItems(newItem);
+      } 
+
+      
+
+        
+      else if (range == 0 && text != '') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.name.toLowerCase().includes(text.toLowerCase());
+        });
+        setProductItems(newItem);
+      } 
+        
+
+
+      else if (range != 0 && text != '') {
+        const newItem = products.filter((newVal: Provider) => {
+          return newVal.name.toLowerCase().includes(text.toLowerCase()) && newVal.price <= range;
+        });
+        setProductItems(newItem);
+      } 
+
+      
+
+  }, [range, text])
 
 
 
@@ -97,7 +150,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
       });
       setProductItems(newItem);
     }
-  }, [text, category])
+  }, [text])
 
   
   // clear all filters
@@ -152,11 +205,11 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
         
         <div className="filter">
         {/* sort by price range */}
-        {/* <div>
+        <div>
           <label htmlFor="priceRange">Price Filter</label> <br />
           <input className='range' onChange={(e) => setRange(Number(e.target.value))} type={'range'} min="10" defaultValue={100} max="100" step="10" />
           <div>{range}</div>
-        </div> */}
+        </div>
 
           
         {/* filter by sorting */}
