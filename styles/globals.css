@@ -280,7 +280,7 @@ a {
   border: 1px solid rgba(0, 0, 0, 0.5);
   outline: none;
   border-radius: 5px;
-  padding: 6px;
+  padding: 8px;
   box-shadow: 2px;
   box-shadow: -1px 3px 6px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -1px 3px 6px 0px rgba(0, 0, 0, 0.75);
@@ -788,7 +788,7 @@ select {
 }
 
 .reviews>div {
-  color: yellow;
+  color: rgba(207, 144, 7, 0.89);
 }
 
 .price {
