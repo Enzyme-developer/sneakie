@@ -4,7 +4,6 @@ import Banner from '../components/Banner';
 import FooterBanner from '../components/FooterBanner';
 import IndividualProduct from '../components/IndividualProduct';
 import toast, { Toaster } from 'react-hot-toast';
-import { CategoryOutlined } from '@material-ui/icons';
 
 
 const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
