@@ -555,6 +555,9 @@ select {
   text-align: center;
   padding: 1rem 0;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 .register .error {
@@ -630,7 +633,7 @@ select {
   margin: 0 auto;
   min-height: 100vh;
   margin-top: 3rem;
-  padding: 1rem 1.5rem;
+  padding: 1rem 1.5rem 2rem;
 }
 
 .checkout__text {
@@ -973,4 +976,5 @@ select {
   background-color: #f02d34;
   color: white;
   width: fit-content;
+  cursor: pointer;
 }

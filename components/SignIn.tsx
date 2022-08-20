@@ -32,7 +32,8 @@ const SignIn = () => {
   
     <div>
     <Toaster />
-    <div className="register">
+      <div className="register">
+      <h1 className='checkout__text'>Sign In</h1>
       <label>Email address</label>
       <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' />
       <label>Password</label>
@@ -40,7 +41,7 @@ const SignIn = () => {
       <button className='signin' onClick={signInNewUser}>signIn</button>
       <p className='error'>{error}</p>
       <p className='correct'>Not Registered? 
-        <Link href='/sign_up'> Sign up</Link>
+      <Link href='/sign_up'><p style={{textDecoration: 'underline' , color: '#270a4b'}}>Sign up</p></Link>
       </p>
     </div>
     </div>

@@ -15,16 +15,20 @@ const [edd, setEdd] = useState('')
 const [payment, setPayment] = useState('')
 const [loading, setLoading] = useState(false)
 const { user } = useContext(userContext)
-const { setCartItems, cartItems, totalPrice } = useStateContext()
+const { setCartItems, cartItems, totalPrice, setTotalPrice } = useStateContext()
     
     
 const confirm = () => {
-    if (address && telephone) {
-        toast.success('Order placed successfully, We would be in touch')
-        router.push('/')
-        setCartItems([])
-    } else {
-        alert('fill all fields to validate checkout')
+    if (window.confirm("Are you sure you want to checkout?")) {
+        if (address && telephone) {
+            toast.success('Order placed successfully, We would be in touch')
+            window.localStorage.clear();
+            router.push('/')
+            setCartItems([])
+            setTotalPrice(0)
+        } else {
+            alert('fill all fields to validate checkout')
+        }
     }
 } 
     
@@ -82,6 +86,7 @@ const confirm = () => {
             
                 <p className='edd'>Total : ${totalPrice}</p>
                 <p className='edd'>Expexcted delivery date : {edd}</p>
+                <p className='edd'>Delivery fee : ${Math.floor(totalPrice * 0.05)}</p>
 
                 <button className='checkout__button' onClick={confirm}>Confirm Checkout</button>
 

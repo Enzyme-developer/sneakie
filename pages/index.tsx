@@ -22,10 +22,13 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   //filter by category
   const filterItem = (curItems: string) => {
     if (category == 'All') {
-      setProductItems(products)
+      const newItem = products.filter((newVal: Provider) => {
+        return newVal.price <= range; 
+      });
+      setProductItems(newItem)
     } else {
       const newItem: any = products.filter((newVal: any) => {
-        return newVal.category === curItems;
+        return newVal.category === curItems  && newVal.price <= range;
       });
       window.scrollTo({
         top: 1000,
@@ -54,7 +57,7 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
   // filter by price range
   useEffect(() => {
       const newItem = products.filter((newVal: Provider) => {
-        return newVal.price <= range; 
+        return newVal.price <= range && newVal.category === category; 
       });
       setProductItems(newItem);
   }, [range])
@@ -72,25 +75,6 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
       setProductItems(newItem);
     }
   }, [text])
-
-
-
-  //filter by sorting
-  // useEffect(() => {
-  //     if (option === 'highest') {
-  //       const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? 1 : -1)
-  //       setProductItems(filteredOption)
-  //     }
-  //       else if (option === 'lowest') {
-  //       const filteredOption = products.sort((a: Provider, b: Provider) => a.price > b.price ? -1 : 1)
-  //       setProductItems(filteredOption)
-  //     } else {
-  //       setProductItems(products)
-  //     }
-  //   }, [option])
-
-    // console.log(option)
-
 
   
   // clear all filters

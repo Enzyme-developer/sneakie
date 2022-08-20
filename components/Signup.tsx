@@ -33,6 +33,7 @@ const Signup = () => {
     <div>
       <Toaster />
       <div className="register">
+        <h1 className='checkout__text'>Sign Up</h1>
         <label>Email address</label>
         <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' />
         <label>Password</label>
@@ -40,7 +41,7 @@ const Signup = () => {
         <button className='signup' onClick={ signNewUser }>signup</button>
         <p className='error'>{error}</p>
         <p className='correct'>Already Registered? 
-          <Link className='link' href='/sign_in'> Sign In</Link>
+          <Link className='link' href='/sign_in'><p style={{textDecoration: 'underline' , color: '#270a4b'}}>Sign In</p></Link>
         </p>
       </div>
     </div>
