@@ -23,11 +23,11 @@ const SignIn = () => {
     try {
       setLoading(true)
       await signIn(email, password)
-      if (user) {
-        router.push('/')
-        toast.success('sign in successful')
-      }
-      setLoading(false)
+      router.push('/')
+      toast.success('sign in successful')
+      setTimeout(() => {
+        setLoading(false)
+      }, 6000);
     }
     catch (e: any){
       console.log(e)

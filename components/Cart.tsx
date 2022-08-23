@@ -26,16 +26,8 @@ const Cart = () => {
     <div className="cart-wrapper">
       <Toaster />
       <div className="cart-container">
-
-        {!user ?
-          (<div className='not__user'>
-            <p>please sign in to view cart</p>
-            <Link href='/sign_in' className='link' ><small>Sign In</small></Link>
-          </div>)
-            
-            :
           
-          (<div className='cart'>
+          <div className='cart'>
               <div className="cart-heading">
               <span className="heading">Your Cart</span>
               <span className="cart-num-items">({cartItems.length} items)</span>
@@ -104,7 +96,7 @@ const Cart = () => {
             
           </div>
         )}
-          </div>)}
+        </div>
        
       </div>
       

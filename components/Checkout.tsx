@@ -5,6 +5,7 @@ import emailjs from 'emailjs-com'
 import { userContext } from '../context/AuthContext';
 import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../LIB/client';
+import Link from 'next/link';
 
 const Checkout = () => {
 
@@ -40,18 +41,17 @@ const confirm = () => {
     }, [])
     
 
-
-
-    if (!user) {
-        router.push('/')
-    }
-
     return (
        
         <div className='checkout'>
         <Toaster />
-        
-            {cartItems?.length ? (<div className='checkout__info'>
+            {!user ? (
+            (<div className='not__user'>
+            <p>please sign in to process your checkout</p>
+            <Link href='/sign_in' className='link' ><small>Sign In</small></Link>
+             </div>)
+            ) : (
+                cartItems?.length ? (<div className='checkout__info'>
                 <h1 className='checkout__text'>Checkout</h1>
                 <div className="checkout__items">
                     {cartItems?.map((item: any) => (
@@ -91,7 +91,11 @@ const confirm = () => {
 
                 <button className='checkout__button' onClick={confirm}>Confirm Checkout</button>
 
-            </div>) : (<h1 style={{textAlign: 'center'}}>No Item available for checkout</h1>)}
+            </div>) : (<h1 style={{textAlign: 'center'}}>No Item available for checkout</h1>)
+            )
+            }
+        
+            
         
     </div>
   )

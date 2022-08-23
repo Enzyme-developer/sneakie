@@ -17,30 +17,26 @@ const Signup = () => {
 
 
   const signNewUser = async (e : any) => {
-    e.preventDefault();
-    setError('');
-    try {
+    e.preventDefault()
+    setError('')
       setLoading(true)
       await signUp(email, password)
       if (user) {
-        router.push('/')
-        toast.success('signup successful')
+      router.push('/')
+      toast.success('sign in successful')
+      } else{
+        setError('Email already in use / password too short')
       }
-      setError('Email already in use / password too short')
-      setLoading(false)
-    } catch(e: any) {
-      console.log(e.message)
-      setError(e.message)
-      setLoading(false)
-    }
+      setTimeout(() => {
+        setLoading(false)
+      }, 6000);
   }
   
 
-  if (loading) { return <div style={{ minHeight:'100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><InfinitySpin width='200' color="blue" /></div> }
-
+  if (loading) { return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><InfinitySpin width='200' color="blue" /></div> }
   
   return (
-    <div className='register-div'>
+    <div>
       <Toaster />
       <div className="register">
         <h1 className='checkout__text'>Sign Up</h1>
