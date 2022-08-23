@@ -33,7 +33,7 @@ const Signup = () => {
   }
   
 
-  if (loading) { return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><InfinitySpin width='200' color="blue" /></div> }
+  if (loading) {return <div style={{minHeight:'100vh', display: 'flex', justifyContent:'center', alignItems: 'center'}}><InfinitySpin width='200'color="blue" /></div>}
   
   return (
     <div>
