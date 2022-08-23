@@ -84,9 +84,9 @@ const confirm = () => {
                 </div>}
             
             
-                <p className='edd'>subotal : ${totalPrice}</p>
+                <p>subotal : ${totalPrice}</p>
                 <p className='edd'>Expexcted delivery date : {edd}</p>
-                <p className='edd'>Delivery fee : ${Math.floor(totalPrice * 0.05)}</p>
+                <p>Delivery fee : ${Math.floor(totalPrice * 0.05)}</p>
                 <p className='edd'>Total : ${ totalPrice + Math.floor(totalPrice * 0.05)}</p>
 
                 <button className='checkout__button' onClick={confirm}>Confirm Checkout</button>
