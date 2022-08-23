@@ -19,17 +19,20 @@ const Signup = () => {
   const signNewUser = async (e : any) => {
     e.preventDefault()
     setError('')
+
+    try {
       setLoading(true)
       await signUp(email, password)
-      if (user) {
-      router.push('/')
+      router.push('/sign_in')
       toast.success('sign in successful')
-      } else{
-        setError('Email already in use / password too short')
-      }
       setTimeout(() => {
         setLoading(false)
-      }, 6000);
+      }, 5000);
+    }
+
+    catch (err: any) {
+      console.log(err)
+    }
   }
   
 

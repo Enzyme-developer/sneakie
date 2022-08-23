@@ -20,21 +20,26 @@ const IndividualProduct = ({ product }: any) => {
   const itemPath = doc(db, 'users', `${user?.email}`);
 
   const saveItem = async () => {
+    if (user) {
       setSave(true);
       await updateDoc(itemPath, {
         favoriteItems: arrayUnion({
           id: product._id,
           name: product.name,
-          price: product.price,
+          price: product.price, 
           category: product.category,
           details: product.details,
           slug: product.slug.current,
           image: product.image,
         }),
+
       });
       toast.success('Item added to favorites');
-  };
 
+    } else {
+      toast.error('Please sign in to add items to favorites');
+    }
+  };
 
 
   return (
@@ -54,7 +59,7 @@ const IndividualProduct = ({ product }: any) => {
         </div>
       </Link>
 
-      <div className="index__buttons" style={{ display: 'flex', alignItems: "center", gap: '15px' }}>
+      <div className="index__buttons" style={{ display: 'flex', alignItems: "center", gap: '20px' }}>
         <button className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
         <button onClick={() => onAdd(product, 1)} className='index__add'><BsCart4 style={{marginRight: '5px'}} />Add to cart</button>
       </div>
