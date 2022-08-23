@@ -514,7 +514,14 @@ select {
   }
 }
 
+
+
+
 /* sign in and sign up */
+.register-div{
+  min-height: 100vh;
+}
+
 .register {
   margin: 2rem auto 0;
   padding: 2rem 1rem;
@@ -623,6 +630,10 @@ select {
 }
 
 
+form{
+  display: flex;
+  flex-direction: column;
+}
 
 
 /* checkout */

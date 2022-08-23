@@ -8,17 +8,24 @@ import { useRouter } from 'next/router';
 import { urlFor } from '../LIB/client';
 import { BiTrash, BiTrashAlt } from 'react-icons/bi'
 import { AiOutlineArrowRight } from 'react-icons/ai';
+import {InfinitySpin} from 'react-loader-spinner'
 
 const Favorites = () => {
   const router = useRouter()
   const { user } = useContext(userContext)
   const [ favorites, setFavorites ] = useState<any>([])
+  const [ loading, setLoading ] = useState(false)
 
 
   useEffect(() => {
-  onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+    setLoading(true)
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setFavorites(doc.data()?.favoriteItems);
-  });
+    });
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 5000);
   }, [user?.email]);
 
 
@@ -42,13 +49,15 @@ const Favorites = () => {
   };
 
   
+  if (loading) { return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight:'100vh' }}><InfinitySpin width='200' color="blue" /></div> }
     
+
   return (
     <div className='my__favorites'>
       <Toaster />
     <div className="favorite__items">
-        {favorites.length > 0 ? (
-        favorites.map((item: any) => (
+        {favorites?.length > 0 ? (
+        favorites?.map((item: any) => (
         <div className='favorite__section'>
           <img  src={urlFor(item.image[0])} width={150} height={150} className="feature__image" />
           <h2>{item.name}</h2>
@@ -63,7 +72,5 @@ const Favorites = () => {
     </div>
   )
 }
-
-
 
 export default Favorites

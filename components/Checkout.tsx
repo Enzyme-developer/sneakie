@@ -51,7 +51,7 @@ const confirm = () => {
         <div className='checkout'>
         <Toaster />
         
-            {cartItems.length ? (<div className='checkout__info'>
+            {cartItems?.length ? (<div className='checkout__info'>
                 <h1 className='checkout__text'>Checkout</h1>
                 <div className="checkout__items">
                     {cartItems?.map((item: any) => (
@@ -84,9 +84,10 @@ const confirm = () => {
                 </div>}
             
             
-                <p className='edd'>Total : ${totalPrice}</p>
+                <p className='edd'>subotal : ${totalPrice}</p>
                 <p className='edd'>Expexcted delivery date : {edd}</p>
                 <p className='edd'>Delivery fee : ${Math.floor(totalPrice * 0.05)}</p>
+                <p className='edd'>Total : { totalPrice + Math.floor(totalPrice * 0.05)}</p>
 
                 <button className='checkout__button' onClick={confirm}>Confirm Checkout</button>
 

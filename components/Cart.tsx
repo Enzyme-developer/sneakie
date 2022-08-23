@@ -44,7 +44,7 @@ const Cart = () => {
 
 
         {/* cart is empty */}
-        {cartItems.length < 1 && (
+        {cartItems?.length < 1 && (
           <div className="empty-cart">
             <h3>Your shopping bag is empty</h3>
             <Link href="/">
@@ -58,7 +58,7 @@ const Cart = () => {
         
         {/* cart is not empty */}
         <div className="product-container">
-          {cartItems.length >= 1 && cartItems.map((item: any) => (
+          {cartItems?.length >= 1 && cartItems.map((item: any) => (
 
             <div className="product" key={item?._id}>
               <img src={urlFor(item?.image[0])} className="cart-product-image" />
@@ -88,7 +88,7 @@ const Cart = () => {
 
 
         
-        {cartItems.length >= 1 && (
+        {cartItems?.length >= 1 && (
           <div className="cart-bottom">
 
             <div className="total">

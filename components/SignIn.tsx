@@ -4,46 +4,58 @@ import { userContext } from '../context/AuthContext'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
+import {InfinitySpin} from 'react-loader-spinner'
+
 
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-  const { signIn } = useContext(userContext)
+  const { signIn, user } = useContext(userContext)
 
 
   const signInNewUser = async (e: any) => {
+    e.preventDefault()
     setError('')
     try {
-        await signIn(email, password)
-      router.push('/')
-      toast.success('sign in successful')
+      setLoading(true)
+      await signIn(email, password)
+      if (user) {
+        router.push('/')
+        toast.success('sign in successful')
+      }
+      setLoading(false)
     }
     catch (e: any){
       console.log(e)
       setError(e.message)
+      setLoading(false)
     }
   }
   
+  if (loading) {return <div style={{minHeight:'100vh', display: 'flex', justifyContent:'center', alignItems: 'center'}}><InfinitySpin width='200'color="blue" /></div>}
 
   return (
   
-    <div>
-    <Toaster />
+    <div className='register-div'>
+      <Toaster />
       <div className="register">
       <h1 className='checkout__text'>Sign In</h1>
+      <form onSubmit={signInNewUser}>
       <label>Email address</label>
-      <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' />
+      <input onChange={(e) => setEmail(e.target.value)} placeholder='john@gmail.com' type='email' required />
       <label>Password</label>
-      <input onChange={(e) => setPassword(e.target.value)} type='password' placeholder='12regdj'/>
-      <button className='signin' onClick={signInNewUser}>signIn</button>
+      <input onChange={(e) => setPassword(e.target.value)} type='password' required placeholder='12regdj'/>
+      <button className='signin'type='submit'>signIn</button>
+      </form>
       <p className='error'>{error}</p>
       <p className='correct'>Not Registered? 
       <Link href='/sign_up'><p style={{textDecoration: 'underline' , color: '#270a4b'}}>Sign up</p></Link>
       </p>
-    </div>
+     </div>
     </div>
   )
 }
