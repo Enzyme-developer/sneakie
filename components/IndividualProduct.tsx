@@ -20,7 +20,6 @@ const IndividualProduct = ({ product }: any) => {
   const itemPath = doc(db, 'users', `${user?.email}`);
 
   const saveItem = async () => {
-    if (user?.email) {
       setSave(true);
       await updateDoc(itemPath, {
         favoriteItems: arrayUnion({
@@ -32,13 +31,8 @@ const IndividualProduct = ({ product }: any) => {
           slug: product.slug.current,
           image: product.image,
         }),
-
       });
       toast.success('Item added to favorites');
-
-    } else {
-      toast.error('Please sign in to add items to favorites');
-    }
   };
 
 
