@@ -27,7 +27,7 @@ const Signup = () => {
        setLoading(true)
       // Signed in 
       router.push('/sign_in')
-      toast.success('sign in successful')
+      toast.success('sign up successful')
       setTimeout(() => {
         setLoading(false)
       }, 4000);
