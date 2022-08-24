@@ -33,15 +33,19 @@ const Signup = () => {
     //   setError(err.message)
     // }
     await createUserWithEmailAndPassword(auth, email, password)
-     .then((userCredential) => {
+      .then((userCredential) => {
+       setLoading(true)
       // Signed in 
       router.push('/sign_in')
-      var user = userCredential.user;
+      toast.success('sign in successful')
+      setTimeout(() => {
+        setLoading(false)
+      }, 4000);
+      let user = userCredential.user;
       console.log(user)
-    
     })
     .catch((error) => {
-      setError(error.message)
+      setError(error.message.slice(10, error.length))
       var errorMessage = error.message
       console.log(errorMessage)
     

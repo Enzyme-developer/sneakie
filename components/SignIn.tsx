@@ -27,7 +27,7 @@ const SignIn = () => {
       toast.success('sign in successful')
       setTimeout(() => {
         setLoading(false)
-      }, 6000);
+      }, 4000);
     }
     catch (e: any){
       console.log(e)
