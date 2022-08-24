@@ -60,7 +60,7 @@ const IndividualProduct = ({ product }: any) => {
       </Link>
 
       <div className="index__buttons" style={{ display: 'flex', alignItems: "center", gap: '20px' }}>
-        <button className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
+        <button style={{marginRight:'8px'}} className='favorite' onClick={() => saveItem()}><MdOutlineFavoriteBorder className='favorite__button' /> favorite</button>
         <button onClick={() => onAdd(product, 1)} className='index__add'><BsCart4 style={{marginRight: '5px'}} />Add to cart</button>
       </div>
 
