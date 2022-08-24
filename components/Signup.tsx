@@ -25,13 +25,10 @@ const Signup = () => {
       await signUp(email, password)
       router.push('/sign_in')
       toast.success('sign in successful')
-      setTimeout(() => {
-        setLoading(false)
-      }, 5000);
-    }
-
-    catch (err: any) {
+      setLoading(false)
+    } catch (err: any) {
       console.log(err)
+      setError(err.message)
     }
   }
   
