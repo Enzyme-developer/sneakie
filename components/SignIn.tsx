@@ -31,7 +31,7 @@ const SignIn = () => {
     }
     catch (e: any){
       console.log(e)
-      setError(e.message)
+      setError(e.message.slice(10, e.length))
       setLoading(false)
     }
   }
