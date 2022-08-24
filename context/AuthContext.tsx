@@ -23,11 +23,16 @@ export const AuthContextProvider = ({ children }: any) => {
     const [user, setUser] = useState({})
     console.log(user)
     
-    const signUp = (email: any, password: any) => {
-        createUserWithEmailAndPassword(auth, email, password)
-        return setDoc(doc(db, 'users', email), {
-            favoriteItems: [],
-        })
+    const signUp = async (email: any, password: any) => {
+    await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    let user = userCredential.user;
+    console.log(user)
+    })
+    
+    return setDoc(doc(db, 'users', email), {
+        favoriteItems: [],
+    })
     }
 
 

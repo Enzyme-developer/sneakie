@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useContext } from 'react';
 import { userContext } from '../context/AuthContext'
+import { auth, db } from '../firebase';
+import { doc, setDoc } from 'firebase/firestore'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
 import { InfinitySpin } from 'react-loader-spinner'
 import { createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut , onAuthStateChanged, UserCredential } from 'firebase/auth';
-import { auth } from '../firebase';
 
 
 const Signup = () => {
@@ -21,17 +22,6 @@ const Signup = () => {
   const signNewUser = async (e : any) => {
     e.preventDefault()
     setError('')
-
-    // try {
-    //   setLoading(true)
-    //   await signUp(email, password)
-    //   router.push('/sign_in')
-    //   toast.success('sign in successful')
-    //   setLoading(false)
-    // } catch (err: any) {
-    //   console.log(err)
-    //   setError(err.message)
-    // }
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
        setLoading(true)
@@ -50,6 +40,10 @@ const Signup = () => {
       console.log(errorMessage)
     
     });
+
+    return setDoc(doc(db, 'users', email), {
+      favoriteItems: [],
+  })
     
   }
   
