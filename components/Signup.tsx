@@ -4,7 +4,9 @@ import { userContext } from '../context/AuthContext'
 import { useRouter } from 'next/router';
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
-import {InfinitySpin} from 'react-loader-spinner'
+import { InfinitySpin } from 'react-loader-spinner'
+import { createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut , onAuthStateChanged, UserCredential } from 'firebase/auth';
+import { auth } from '../firebase';
 
 
 const Signup = () => {
@@ -20,16 +22,31 @@ const Signup = () => {
     e.preventDefault()
     setError('')
 
-    try {
-      setLoading(true)
-      await signUp(email, password)
+    // try {
+    //   setLoading(true)
+    //   await signUp(email, password)
+    //   router.push('/sign_in')
+    //   toast.success('sign in successful')
+    //   setLoading(false)
+    // } catch (err: any) {
+    //   console.log(err)
+    //   setError(err.message)
+    // }
+    await createUserWithEmailAndPassword(auth, email, password)
+     .then((userCredential) => {
+      // Signed in 
       router.push('/sign_in')
-      toast.success('sign in successful')
-      setLoading(false)
-    } catch (err: any) {
-      console.log(err)
-      setError(err.message)
-    }
+      var user = userCredential.user;
+      console.log(user)
+    
+    })
+    .catch((error) => {
+      setError(error.message)
+      var errorMessage = error.message
+      console.log(errorMessage)
+    
+    });
+    
   }
   
 
