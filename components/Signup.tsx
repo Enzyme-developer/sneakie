@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link'
 import toast, { Toaster } from 'react-hot-toast';
 import { InfinitySpin } from 'react-loader-spinner'
-import { createUserWithEmailAndPassword , signInWithEmailAndPassword , signOut , onAuthStateChanged, UserCredential } from 'firebase/auth';
+import { createUserWithEmailAndPassword, UserCredential } from 'firebase/auth';
 
 
 const Signup = () => {
@@ -21,10 +21,10 @@ const Signup = () => {
 
   const signNewUser = async (e : any) => {
     e.preventDefault()
+    setLoading(true)
     setError('')
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-       setLoading(true)
       // Signed in 
       router.push('/sign_in')
       toast.success('sign up successful')
@@ -34,7 +34,10 @@ const Signup = () => {
       let user = userCredential.user;
       console.log(user)
     })
-    .catch((error) => {
+      .catch((error) => {
+      setTimeout(() => {
+        setLoading(false)
+      }, 4000);
       setError(error.message.slice(10, error.length))
       var errorMessage = error.message
       console.log(errorMessage)

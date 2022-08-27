@@ -404,7 +404,7 @@ select {
   transition: transform 0.5s ease;
   transition: transform 0.5s ease, -webkit-transform 0.5s ease;
   color: #00274b;
-  margin: 2rem 0;
+  margin: 2.5rem 0;
 }
 
 .product-card:hover {
@@ -714,7 +714,7 @@ select {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 20px;
+  gap: 1.8rem;
   margin: 2rem;
 }
 
@@ -780,7 +780,7 @@ form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 15px;
+  gap: 1rem;
   margin: 1rem 0;
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -1087,7 +1087,7 @@ select {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 30px;
+  gap: 2rem;
   margin: 1.5rem;
 }
 

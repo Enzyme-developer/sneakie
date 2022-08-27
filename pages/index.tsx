@@ -138,12 +138,14 @@ const Home = ({ products, bannerData }: { products: []; bannerData: any; }) => {
     setRange(100)
     setProductItems([...products])
     setText('')
+    setCategory('All')
  }
 
  
 
   {if (!products) return (<h1>No result</h1>)}
 
+  //sort function
   function onSelectionChange(e: any) {
     const sortDirection = e.target.value;
     const copyArray = [...products]; // create a new array & not mutate state
