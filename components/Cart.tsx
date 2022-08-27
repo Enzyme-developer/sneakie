@@ -18,7 +18,7 @@ const Cart = () => {
   const { user } = useContext(userContext);
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove, onAdd } = useStateContext();
 
-  console.log(cartItems)
+  // console.log(cartItems)
 
 
   return ( 

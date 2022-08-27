@@ -32,7 +32,7 @@ const Favorites = () => {
   
   const cartPath = doc(db, 'users', `${user?.email}`);
 
-  console.log(favorites)
+  // console.log(favorites)
     
       
   const handleDelete= async (passedid :any) => {
@@ -44,7 +44,7 @@ const Favorites = () => {
       toast.error(`item was removed from favorites`)
         
     } catch (e:any) {
-      console.log(e.message);
+      // console.log(e.message);
     }
   };
 

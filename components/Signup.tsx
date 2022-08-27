@@ -32,7 +32,7 @@ const Signup = () => {
         setLoading(false)
       }, 4000);
       let user = userCredential.user;
-      console.log(user)
+      // console.log(user)
     })
       .catch((error) => {
       setTimeout(() => {
@@ -40,7 +40,7 @@ const Signup = () => {
       }, 4000);
       setError(error.message.slice(10, error.length))
       var errorMessage = error.message
-      console.log(errorMessage)
+      // console.log(errorMessage)
     
     });
 

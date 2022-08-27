@@ -30,7 +30,7 @@ const SignIn = () => {
       }, 4000);
     }
     catch (e: any){
-      console.log(e)
+      // console.log(e)
       setLoading(false)
       setError(e.message.slice(10, e.length))
     }
