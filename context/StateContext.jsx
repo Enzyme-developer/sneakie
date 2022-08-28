@@ -80,7 +80,7 @@ export const StateContextProvider = ({ children }) => {
     if (productInCart) {
       //map through every product so as to compare the newly added product then update the cart
       const updatedCartItems = cartItems.map((cartProduct) => {
-        if(cartProduct?._id === product._id) return {
+        if(cartProduct?._id === product?._id) return {
           ...cartProduct,
           //if product is present ,overwrite only the quantity
           quantity: cartProduct.quantity + quantity
@@ -122,12 +122,12 @@ export const StateContextProvider = ({ children }) => {
 
   const toggleCartItemQuanitity = (id, value) => {
     //find the product
-    foundProduct = cartItems.find((item) => item._id === id)
+    foundProduct = cartItems.find((item) => item?._id === id)
     //find index of the product
-    index = cartItems.findIndex((product) => product._id === id);
+    index = cartItems.findIndex((product) => product?._id === id);
     //Remove the found product and make cart clean
     //clean cart
-    const newCartItems  = cartItems.filter((item) => item._id !== id)
+    const newCartItems  = cartItems.filter((item) => item?._id !== id)
 
     if (value === 'inc') {
       //if value is increase, update state

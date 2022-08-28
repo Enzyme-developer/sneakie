@@ -63,7 +63,7 @@ const Favorites = () => {
           <h2>{item?.name}</h2>
           <h4>Price : ${item?.price}</h4>
           <h4>Category : {item?.category}</h4>
-          <Link href={`/product/${item?.slug}`}><AiOutlineArrowRight style={{cursor: 'pointer'}} /></Link>
+          <Link href={`/product/${item?.slug}`}><AiOutlineArrowRight className='arrow' style={{cursor: 'pointer'}} /></Link>
           <button onClick={() => handleDelete(item?.id)} className='delete__favorite' style={{cursor:'pointer'}}><BiTrash style={{marginRight: '4px'}} />delete</button>
         </div>
         ))) : (<h1>No Item In Favorites</h1>)}

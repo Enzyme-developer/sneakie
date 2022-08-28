@@ -18,7 +18,7 @@ const Cart = () => {
   const { user } = useContext(userContext);
   const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove, onAdd } = useStateContext();
 
-  // console.log(cartItems)
+  console.log(cartItems)
 
 
   return ( 
@@ -53,7 +53,7 @@ const Cart = () => {
           {cartItems?.length >= 1 && cartItems.map((item: any) => (
 
             <div className="product" key={item?._id}>
-              <img src={urlFor(item?.image[0])} className="cart-product-image" />
+              <img src={urlFor(item?.image[0]).url()} className="cart-product-image" />
               <div className="item-desc">
 
                 <div className="flex top">

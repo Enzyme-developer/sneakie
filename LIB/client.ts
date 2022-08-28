@@ -1,5 +1,6 @@
 import sanityClient from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
+// import myConfiguredSanityClient from './sanityClient'
 
 export const client = sanityClient({
     projectId: 'z3lfupp1',
